@@ -1,9 +1,10 @@
 package com.ua.statosudiscord.listeners.about;
 
+import com.ua.statosudiscord.listeners.ProcessCommand;
 import discord4j.core.object.entity.Message;
 import reactor.core.publisher.Mono;
 
-public abstract class AboutListener {
+public abstract class AboutListener implements ProcessCommand {
     public Mono<Void> processCommand(Message eventMessage) {
         return Mono.just(eventMessage)
                 .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
