@@ -1,0 +1,17 @@
+services:
+  app:
+    image: 'osu_stats-bot:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - osu-stats
+    environment:
+      - SPRING_DATA_MONGO_DB_DATABASE=osu-stats
+
+  osu-stats:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    container_name: osu-stats-db
