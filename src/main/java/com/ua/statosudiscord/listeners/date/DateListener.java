@@ -8,9 +8,9 @@ import reactor.core.publisher.Mono;
 public abstract class DateListener implements ProcessCommand {
     @Override
     public Mono<Void> processCommand(Message eventMessage) {
-        String parametersError = "Parameters error.Use: !date type{daily, weekly or monthly} time {0-23}";
-        String timeError = "wrong time. 0-23";
-        String periodError = "wrong period. daily, monthly, weekly";
+        String parametersError = "Parameters error.Use: !date frequency{daily, weekly or monthly} time {0-23}";
+        String timeError = "Wrong time.Enter value in range 0-23";
+        String periodError = "Wrong period.Period could be daily, weekly or monthly";
         String[] commandWithArguments = eventMessage.getContent().split(" ");
         if (commandWithArguments[0].equals("!date") && commandWithArguments.length != 3) {
             return Mono.just(eventMessage)
