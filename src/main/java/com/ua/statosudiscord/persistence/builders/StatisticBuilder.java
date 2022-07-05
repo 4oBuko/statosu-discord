@@ -1,6 +1,6 @@
 package com.ua.statosudiscord.persistence.builders;
 
-import com.ua.statosudiscord.UpdatePeriod;
+import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 
 import java.time.LocalDateTime;

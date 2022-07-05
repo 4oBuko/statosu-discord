@@ -1,6 +1,5 @@
 package com.ua.statosudiscord.persistence.entities;
 
-import com.ua.statosudiscord.UpdatePeriod;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Statistic {
+public class Statistic implements Serializable {
     @Id
     private Long discordUserId;
 

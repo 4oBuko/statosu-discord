@@ -1,11 +1,12 @@
 package com.ua.statosudiscord.listeners.about;
 
+import com.ua.statosudiscord.apirequests.AccessToken;
 import com.ua.statosudiscord.listeners.ProcessCommand;
 import discord4j.core.object.entity.Message;
 import reactor.core.publisher.Mono;
 
 public abstract class AboutListener implements ProcessCommand {
-    final private static String aboutBot = "I'm Statosu. " +
+    private final static String aboutBot = "I'm Statosu. " +
             "I show your progress in Osu classic mode.\n" +
             "You need to give me your Osu nickname and the update time.\n" +
             "I support these commands:\n" +
