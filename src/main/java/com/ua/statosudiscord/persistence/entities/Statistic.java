@@ -54,8 +54,7 @@ public class Statistic {
     private LocalDateTime lastUpdated;
 
     private LocalDateTime nextUpdateTime;
-
-    private Integer updateHour;//todo:add limit 0-23
+    private Integer updateHour;
 
 
     @Override
