@@ -5,42 +5,49 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
+@Document
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Statistic {
-    private long discordUserId;
+    @Id
+    private Long discordUserId;
 
-    private long osuId;
+    private Long id;
 
-    private String nickname;
+    private String username;
 
-    private int rank;
+    private Integer globalRank;
 
-    private int countryRank;
+    private Integer countryRank;
 
-    private double pp;
+    private Double pp;
 
-    private double level;
+    private Double level;
 
-    private double accuracy;
+    private Double hitAccuracy;
 
-    private long playTime;
+    private Long playTime;
 
-    private int aRank;
+    private Long playCount;
 
-    private int sRank;
+    private Integer a;
 
-    private int ssRank;
+    private Integer s;
 
-    private int shRank;
+    private Integer ss;
 
-    private int sshRank;
+    private Integer sh;
+
+    private Integer ssh;
 
     private UpdatePeriod period;
 
@@ -48,7 +55,7 @@ public class Statistic {
 
     private LocalDateTime nextUpdateTime;
 
-    private int updateHour;//todo:add limit 0-23
+    private Integer updateHour;//todo:add limit 0-23
 
 
     @Override
@@ -56,31 +63,32 @@ public class Statistic {
         if (this == o) return true;
         if (!(o instanceof Statistic)) return false;
         Statistic statistic = (Statistic) o;
-        return discordUserId == statistic.discordUserId && osuId == statistic.osuId && rank == statistic.rank && countryRank == statistic.countryRank && Double.compare(statistic.pp, pp) == 0 && Double.compare(statistic.level, level) == 0 && Double.compare(statistic.accuracy, accuracy) == 0 && playTime == statistic.playTime && aRank == statistic.aRank && sRank == statistic.sRank && ssRank == statistic.ssRank && shRank == statistic.shRank && sshRank == statistic.sshRank && updateHour == statistic.updateHour && Objects.equals(nickname, statistic.nickname) && period == statistic.period && Objects.equals(lastUpdated, statistic.lastUpdated) && Objects.equals(nextUpdateTime, statistic.nextUpdateTime);
+        return discordUserId.equals(statistic.discordUserId) && id.equals(statistic.id) && username.equals(statistic.username) && globalRank.equals(statistic.globalRank) && countryRank.equals(statistic.countryRank) && pp.equals(statistic.pp) && level.equals(statistic.level) && hitAccuracy.equals(statistic.hitAccuracy) && playTime.equals(statistic.playTime) && playCount.equals(statistic.playCount) && a.equals(statistic.a) && s.equals(statistic.s) && ss.equals(statistic.ss) && sh.equals(statistic.sh) && ssh.equals(statistic.ssh) && period == statistic.period && lastUpdated.equals(statistic.lastUpdated) && nextUpdateTime.equals(statistic.nextUpdateTime) && updateHour.equals(statistic.updateHour);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(discordUserId, osuId, nickname, rank, countryRank, pp, level, accuracy, playTime, aRank, sRank, ssRank, shRank, sshRank, period, lastUpdated, nextUpdateTime, updateHour);
+        return Objects.hash(discordUserId, id, username, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, period, lastUpdated, nextUpdateTime, updateHour);
     }
 
     @Override
     public String toString() {
         return "Statistic{" +
                 "discordUserId=" + discordUserId +
-                ", osuId=" + osuId +
-                ", nickname='" + nickname + '\'' +
-                ", rank=" + rank +
+                ", id=" + id +
+                ", username='" + username + '\'' +
+                ", globalRank=" + globalRank +
                 ", countryRank=" + countryRank +
                 ", pp=" + pp +
                 ", level=" + level +
-                ", accuracy=" + accuracy +
+                ", hitAccuracy=" + hitAccuracy +
                 ", playTime=" + playTime +
-                ", aRank=" + aRank +
-                ", sRank=" + sRank +
-                ", ssRank=" + ssRank +
-                ", shRank=" + shRank +
-                ", sshRank=" + sshRank +
+                ", playCount=" + playCount +
+                ", a=" + a +
+                ", s=" + s +
+                ", ss=" + ss +
+                ", sh=" + sh +
+                ", ssh=" + ssh +
                 ", period=" + period +
                 ", lastUpdated=" + lastUpdated +
                 ", nextUpdateTime=" + nextUpdateTime +
