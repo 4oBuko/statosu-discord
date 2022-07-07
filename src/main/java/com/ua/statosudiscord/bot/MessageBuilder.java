@@ -29,4 +29,11 @@ public class MessageBuilder {
         String message = "";//todo:write message with difference between statistic
         return new Message(updated.getDiscordUserId(), updated.getDiscordChannelId(), message);
     }
+
+//    show stats when user begins to use bot
+    public Message createMessage(Statistic statistic) {
+        String message = "";//todo:write message with difference between statistic
+        return new Message(statistic.getDiscordUserId(), statistic.getDiscordChannelId(), message);
+
+    }
 }
