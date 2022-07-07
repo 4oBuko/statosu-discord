@@ -16,7 +16,7 @@ import java.util.Map;
 public class TokenManager {
     private static String clientSecret;
     private static String clientId;
-    AccessToken accessToken;
+    private AccessToken accessToken;
 
     @Value("${client.secret}")
     public void setClientSecret(String clientSecret) {
@@ -51,7 +51,7 @@ public class TokenManager {
             HttpHeaders headers = response.getHeaders();
             headers.getDate();
             accessToken = response.getBody();
-            accessToken.setResponseTime(LocalDateTime.ofEpochSecond(headers.getDate(), 0, ZoneOffset.UTC));
+            accessToken.setResponseTime(LocalDateTime.ofEpochSecond(headers.getDate() / 1000, 0, ZoneOffset.UTC));
         } else {
 //            throw an error
         }

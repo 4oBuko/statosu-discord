@@ -22,9 +22,9 @@ public class StatisticBuilder {
 
     private Double hitAccuracy;
 
-    private Long playTime;
+    private Integer playTime;
 
-    private Long playCount;
+    private Integer playCount;
 
     private Integer a;
 
@@ -83,12 +83,12 @@ public class StatisticBuilder {
         return this;
     }
 
-    public StatisticBuilder setPlayTime(Long playTime) {
+    public StatisticBuilder setPlayTime(Integer playTime) {
         this.playTime = playTime;
         return this;
     }
 
-    public StatisticBuilder setPlayCount(Long playCount) {
+    public StatisticBuilder setPlayCount(Integer playCount) {
         this.playCount = playCount;
         return this;
     }

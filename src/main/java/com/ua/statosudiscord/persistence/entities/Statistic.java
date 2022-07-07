@@ -1,5 +1,6 @@
 package com.ua.statosudiscord.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -21,8 +23,10 @@ public class Statistic implements Serializable {
     @Id
     private Long discordUserId;
 
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("username")
     private String username;
 
     private Integer globalRank;
@@ -35,9 +39,9 @@ public class Statistic implements Serializable {
 
     private Double hitAccuracy;
 
-    private Long playTime;
+    private Integer playTime;
 
-    private Long playCount;
+    private Integer playCount;
 
     private Integer a;
 
@@ -55,6 +59,27 @@ public class Statistic implements Serializable {
 
     private LocalDateTime nextUpdateTime;
     private Integer updateHour;
+
+    @JsonProperty("statistics")
+    private void unpackStatistic(Map<String, Object> statistics) {
+        System.out.println(statistics);
+        globalRank = (Integer) statistics.get("global_rank");
+        countryRank = (Integer) statistics.get("country_rank");
+        pp = (Double) statistics.get("pp");
+        Map<String, Object> level = (Map<String, Object>) statistics.get("level");
+        System.out.println(level);
+        this.level = (Integer) level.get("current") + ((Integer) level.get("progress") / 100.0);
+        hitAccuracy = (Double) statistics.get("hit_accuracy");
+        playTime = (Integer) statistics.get("play_time");
+        playCount = (Integer) statistics.get("play_count");
+        Map<String, Object> gradeCounts = (Map<String, Object>) statistics.get("grade_counts");
+        System.out.println(gradeCounts);
+        a = (Integer) gradeCounts.get("a");
+        s = (Integer) gradeCounts.get("s");
+        ss = (Integer) gradeCounts.get("ss");
+        sh = (Integer) gradeCounts.get("sh");
+        ssh = (Integer) gradeCounts.get("ssh");
+    }
 
 
     @Override
