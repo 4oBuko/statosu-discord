@@ -1,7 +1,6 @@
-package com.ua.statosudiscord.listeners.about;
+package com.ua.statosudiscord.bot.listeners.about;
 
-import com.ua.statosudiscord.apirequests.AccessToken;
-import com.ua.statosudiscord.listeners.ProcessCommand;
+import com.ua.statosudiscord.bot.listeners.ProcessCommand;
 import discord4j.core.object.entity.Message;
 import reactor.core.publisher.Mono;
 

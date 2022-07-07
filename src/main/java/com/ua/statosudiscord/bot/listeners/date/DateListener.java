@@ -1,7 +1,7 @@
-package com.ua.statosudiscord.listeners.date;
+package com.ua.statosudiscord.bot.listeners.date;
 
+import com.ua.statosudiscord.bot.listeners.ProcessCommand;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
-import com.ua.statosudiscord.listeners.ProcessCommand;
 import discord4j.core.object.entity.Message;
 import reactor.core.publisher.Mono;
 

@@ -1,12 +1,12 @@
-package com.ua.statosudiscord.listeners.about;
+package com.ua.statosudiscord.bot.listeners.date;
 
-import com.ua.statosudiscord.listeners.EventListener;
+import com.ua.statosudiscord.bot.listeners.EventListener;
 import discord4j.core.event.domain.message.MessageUpdateEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class AboutUpdateListener extends AboutListener implements EventListener<MessageUpdateEvent> {
+public class DateUpdateListener extends DateListener implements EventListener<MessageUpdateEvent> {
     @Override
     public Class<MessageUpdateEvent> getEventType() {
         return MessageUpdateEvent.class;

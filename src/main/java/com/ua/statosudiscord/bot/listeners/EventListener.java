@@ -1,4 +1,4 @@
-package com.ua.statosudiscord.listeners;
+package com.ua.statosudiscord.bot.listeners;
 import discord4j.core.event.domain.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

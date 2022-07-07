@@ -1,6 +1,6 @@
-package com.ua.statosudiscord.listeners.nickname;
+package com.ua.statosudiscord.bot.listeners.nickname;
 
-import com.ua.statosudiscord.listeners.ProcessCommand;
+import com.ua.statosudiscord.bot.listeners.ProcessCommand;
 import discord4j.core.object.entity.Message;
 import reactor.core.publisher.Mono;
 

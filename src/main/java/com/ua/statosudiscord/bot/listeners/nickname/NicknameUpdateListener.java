@@ -1,7 +1,6 @@
-package com.ua.statosudiscord.listeners.nickname;
+package com.ua.statosudiscord.bot.listeners.nickname;
 
-import com.ua.statosudiscord.listeners.EventListener;
-import discord4j.core.event.domain.message.MessageCreateEvent;
+import com.ua.statosudiscord.bot.listeners.EventListener;
 import discord4j.core.event.domain.message.MessageUpdateEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

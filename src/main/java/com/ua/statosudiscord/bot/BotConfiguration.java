@@ -1,6 +1,6 @@
-package com.ua.statosudiscord;
+package com.ua.statosudiscord.bot;
 
-import com.ua.statosudiscord.listeners.EventListener;
+import com.ua.statosudiscord.bot.listeners.EventListener;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
