@@ -20,11 +20,15 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Statistic implements Serializable {
+
     @Id
+    private Long id;
     private Long discordUserId;
 
+    private Long discordChannelId;
+
     @JsonProperty("id")
-    private Long id;
+    private Long osuId;
 
     @JsonProperty("username")
     private String username;
@@ -87,19 +91,21 @@ public class Statistic implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Statistic)) return false;
         Statistic statistic = (Statistic) o;
-        return discordUserId.equals(statistic.discordUserId) && id.equals(statistic.id) && username.equals(statistic.username) && globalRank.equals(statistic.globalRank) && countryRank.equals(statistic.countryRank) && pp.equals(statistic.pp) && level.equals(statistic.level) && hitAccuracy.equals(statistic.hitAccuracy) && playTime.equals(statistic.playTime) && playCount.equals(statistic.playCount) && a.equals(statistic.a) && s.equals(statistic.s) && ss.equals(statistic.ss) && sh.equals(statistic.sh) && ssh.equals(statistic.ssh) && period == statistic.period && lastUpdated.equals(statistic.lastUpdated) && nextUpdateTime.equals(statistic.nextUpdateTime) && updateHour.equals(statistic.updateHour);
+        return id.equals(statistic.id) && discordUserId.equals(statistic.discordUserId) && discordChannelId.equals(statistic.discordChannelId) && osuId.equals(statistic.osuId) && username.equals(statistic.username) && globalRank.equals(statistic.globalRank) && countryRank.equals(statistic.countryRank) && pp.equals(statistic.pp) && level.equals(statistic.level) && hitAccuracy.equals(statistic.hitAccuracy) && playTime.equals(statistic.playTime) && playCount.equals(statistic.playCount) && a.equals(statistic.a) && s.equals(statistic.s) && ss.equals(statistic.ss) && sh.equals(statistic.sh) && ssh.equals(statistic.ssh) && period == statistic.period && lastUpdated.equals(statistic.lastUpdated) && nextUpdateTime.equals(statistic.nextUpdateTime) && updateHour.equals(statistic.updateHour);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(discordUserId, id, username, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, period, lastUpdated, nextUpdateTime, updateHour);
+        return Objects.hash(id, discordUserId, discordChannelId, osuId, username, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, period, lastUpdated, nextUpdateTime, updateHour);
     }
 
     @Override
     public String toString() {
         return "Statistic{" +
-                "discordUserId=" + discordUserId +
-                ", id=" + id +
+                "id=" + id +
+                ", discordUserId=" + discordUserId +
+                ", discordChannelId=" + discordChannelId +
+                ", osuId=" + osuId +
                 ", username='" + username + '\'' +
                 ", globalRank=" + globalRank +
                 ", countryRank=" + countryRank +
