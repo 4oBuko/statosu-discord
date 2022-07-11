@@ -7,42 +7,42 @@ import static org.junit.jupiter.api.Assertions.*;
 class TimeConverterTest {
 
     @Test
-    public void zeroMin() {
-        assertEquals("", TimeConverter.convertMinToHours(0));
+    public void zeroSec() {
+        assertEquals("0 min", TimeConverter.convertSecondsToString(0));
     }
 
     @Test
     public void onlyMinutes() {
-        assertEquals("59 min",TimeConverter.convertMinToHours(59));
+        assertEquals("59 min",TimeConverter.convertSecondsToString(60*59));
     }
 
     @Test
     public void oneHour() {
-        assertEquals("1 hr", TimeConverter.convertMinToHours(60));
+        assertEquals("1 hr 0 min", TimeConverter.convertSecondsToString(60*60));
     }
 
     @Test
     public void hoursAndMinutes1() {
-        assertEquals("2 hr 8 min", TimeConverter.convertMinToHours(128));
+        assertEquals("2 hr 8 min", TimeConverter.convertSecondsToString(2*3600 + 8*60));
     }
 
     @Test
     public void hoursAndMinutes2() {
-        assertEquals("7 hr 33 min", TimeConverter.convertMinToHours(453));
+        assertEquals("7 hr 33 min", TimeConverter.convertSecondsToString(7*3600 + 33*60 + 59));
     }
 
     @Test
     public void hoursAndMinutes3() {
-        assertEquals("1 hr 1 min", TimeConverter.convertMinToHours(61));
+        assertEquals("1 hr 1 min", TimeConverter.convertSecondsToString(3600 + 60));
     }
 
     @Test
-    public void oneThousandMinutes() {
-        assertEquals("16 hr 40 min", TimeConverter.convertMinToHours(1000));
+    public void bigValue() {
+        assertEquals("400 hr 44 min", TimeConverter.convertSecondsToString(400*3600 + 44*60));
     }
 
     @Test
-    public void fiveThousandMinutes() {
-        assertEquals("83 hr 20 min", TimeConverter.convertMinToHours(5000));
+    public void veryBigValue() {
+        assertEquals("1234 hr 20 min", TimeConverter.convertSecondsToString(1234*3600 + 20*60));
     }
 }
