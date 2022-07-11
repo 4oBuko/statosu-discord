@@ -10,6 +10,9 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @Service
 @AllArgsConstructor
 public class OsuAPI {
@@ -27,6 +30,9 @@ public class OsuAPI {
         ResponseEntity<Statistic> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Statistic.class, userId);
         if (response.getStatusCode() == HttpStatus.OK) {
             System.out.println(response.getBody());
+            Statistic statistic = response.getBody();
+            HttpHeaders responseHeaders = response.getHeaders();
+            statistic.setLastUpdated(LocalDateTime.ofEpochSecond(responseHeaders.getDate() / 1000, 0, ZoneOffset.UTC));
             return response.getBody();
         } else {
             System.out.println("Error happened");
