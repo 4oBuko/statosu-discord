@@ -17,15 +17,11 @@ public class MessageBuilder {
     private static final String s = "S: ";
     private static final String ss = "SS: ";
     private static final String sh = "S+: ";
-    private final String ssh = "SS+: ";
-    private final String updatedOn = "Updated on: ";
+    private static final String ssh = "SS+: ";
+    private static final String updatedOn = "Updated on: ";
 
     public static Message createMessage(Statistic old, Statistic updated) {
         StatisticBuilder statisticBuilder = new StatisticBuilder()
-                .setId(old.getId())
-                .setDiscordUserId(old.getDiscordUserId())
-                .setDiscordChannelId(old.getDiscordChannelId())
-                .setOsuId(old.getOsuId())//can remove because I only need stats and username
                 .setUsername(updated.getUsername())
                 .setGlobalRank(old.getGlobalRank() - updated.getGlobalRank())
                 .setPp(updated.getPp() - old.getPp())
@@ -43,26 +39,124 @@ public class MessageBuilder {
                 .setNextUpdateTime(updated.getNextUpdateTime())
                 .setUpdateHour(updated.getUpdateHour());
         Statistic difference = statisticBuilder.build();
-        String message = "";//todo:write message with difference between statistic
-        return new Message(updated.getDiscordUserId(), updated.getDiscordChannelId(), message);
+        StringBuilder message = new StringBuilder();
+        message.append(username)
+                .append(updated.getUsername())
+                .append("\n");
+        message.append(globalRank)
+                .append(updated.getGlobalRank())
+                .append("(")
+                .append(String.format("%+d", difference.getGlobalRank()))
+                .append(")")
+                .append("\n");
+        message.append(pp)
+                .append(updated.getPp())
+                .append("(")
+                .append(String.format("%+.2f", difference.getPp()))
+                .append(")")
+                .append("\n");
+        message.append(level)
+                .append(updated.getLevel())
+                .append("(")
+                .append(String.format("%+.2f", difference.getLevel()))
+                .append(")")
+                .append("\n");
+        message.append(accuracy)
+                .append(updated.getHitAccuracy())
+                .append("(")
+                .append(String.format("%+.2f", difference.getHitAccuracy()))
+                .append(")")
+                .append("\n");
+        message.append(playCount)
+                .append(updated.getPlayCount())
+                .append("(")
+                .append("+")
+                .append(difference.getPlayCount())
+                .append(")")
+                .append("\n");
+        message.append(playtime)
+                .append(TimeConverter.convertSecondsToString(updated.getPlayTime()))
+                .append("(")
+                .append("+")
+                .append(TimeConverter.convertSecondsToString(difference.getPlayTime()))
+                .append(")")
+                .append("\n");
+        message.append(a)
+                .append(updated.getA())
+                .append("(")
+                .append(String.format("%+d", difference.getA()))
+                .append(")")
+                .append("\n");
+        message.append(s)
+                .append(updated.getS())
+                .append("(")
+                .append(String.format("%+d", difference.getS()))
+                .append(")")
+                .append("\n");
+        message.append(ss)
+                .append(updated.getSs())
+                .append("(")
+                .append(String.format("%+d", difference.getSs()))
+                .append(")")
+                .append("\n");
+        message.append(sh)
+                .append(updated.getSh())
+                .append("(")
+                .append(String.format("%+d", difference.getSh()))
+                .append(")")
+                .append("\n");
+        message.append(ssh)
+                .append(updated.getSsh())
+                .append("(")
+                .append(String.format("%+d", difference.getSsh()))
+                .append(")")
+                .append("\n");
+        message.append(updatedOn)
+                .append(updated.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")));
+        return new Message(updated.getDiscordUserId(), updated.getDiscordChannelId(), message.toString());
     }
 
     //    show stats when user begins to use bot
-    public Message createMessage(Statistic statistic) {
+    public static Message createMessage(Statistic statistic) {
         StringBuilder message = new StringBuilder();
-        message.append(username).append(statistic.getUsername()).append("\n")
-                .append(globalRank).append(statistic.getGlobalRank()).append("\n")
-                .append(pp).append(statistic.getPp()).append("\n")
-                .append(level).append(statistic.getLevel()).append("\n")
-                .append(accuracy).append(statistic.getHitAccuracy()).append("\n")
-                .append(playCount).append(statistic.getPlayCount()).append("\n")
-                .append(playtime).append(TimeConverter.convertSecondsToString(statistic.getPlayTime())).append("\n")
-                .append(a).append(statistic.getA()).append("\n")
-                .append(s).append(statistic.getS()).append("\n")
-                .append(ss).append(statistic.getSs()).append("\n")
-                .append(sh).append(statistic.getSh()).append("\n")
-                .append(ssh).append(statistic.getSsh()).append("\n")
-                .append(updatedOn).append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")));
+        message.append(username)
+                .append(statistic.getUsername())
+                .append("\n");
+        message.append(globalRank)
+                .append(statistic.getGlobalRank())
+                .append("\n");
+        message.append(pp)
+                .append(statistic.getPp())
+                .append("\n");
+        message.append(level)
+                .append(statistic.getLevel())
+                .append("\n");
+        message.append(accuracy)
+                .append(statistic.getHitAccuracy())
+                .append("\n");
+        message.append(playCount)
+                .append(statistic.getPlayCount())
+                .append("\n");
+        message.append(playtime)
+                .append(TimeConverter.convertSecondsToString(statistic.getPlayTime()))
+                .append("\n");
+        message.append(a)
+                .append(statistic.getA())
+                .append("\n");
+        message.append(s)
+                .append(statistic.getS())
+                .append("\n");
+        message.append(ss)
+                .append(statistic.getSs())
+                .append("\n");
+        message.append(sh)
+                .append(statistic.getSh())
+                .append("\n");
+        message.append(ssh)
+                .append(statistic.getSsh())
+                .append("\n");
+        message.append(updatedOn)
+                .append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")));
         return new Message(statistic.getDiscordUserId(), statistic.getDiscordChannelId(), message.toString());
     }
 }
