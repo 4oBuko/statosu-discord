@@ -46,8 +46,6 @@ public class TokenManager {
         ResponseEntity<AccessToken> response = restTemplate.postForEntity(requestURL, requestBody, AccessToken.class);
         System.out.println(response);
         if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println("we have success");
-            System.out.println(response.getBody());
             HttpHeaders headers = response.getHeaders();
             headers.getDate();
             accessToken = response.getBody();

@@ -1,5 +1,6 @@
 package com.ua.statosudiscord.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,11 +21,12 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Statistic implements Serializable {
-
+    @JsonIgnore()
     @Id
     private Long id;
+    @JsonIgnore()
     private Long discordUserId;
-
+    @JsonIgnore()
     private Long discordChannelId;
 
     @JsonProperty("id")
