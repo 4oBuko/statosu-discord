@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,19 +23,19 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Statistic implements Serializable {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "statistics_sequence";
     @JsonIgnore()
     @Id
     private Long id;
+
     @JsonIgnore()
-    private Long discordUserId;
-    @JsonIgnore()
-    private Long discordChannelId;
+    @DocumentReference(lazy = true)
+    User user;
 
     @JsonProperty("id")
     private Long osuId;
-
-    @JsonProperty("username")
-    private String username;
 
     private Integer globalRank;
 
@@ -87,28 +89,35 @@ public class Statistic implements Serializable {
         ssh = (Integer) gradeCounts.get("ssh");
     }
 
+//    redundant because user doesn't need
+//    @JsonProperty("username")
+//    public void parseUsername(String username) {
+//        if (!user.getOsuUsername().equals(username))
+//            user.setOsuUsername(username);
+//    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Statistic)) return false;
         Statistic statistic = (Statistic) o;
-        return id.equals(statistic.id) && discordUserId.equals(statistic.discordUserId) && discordChannelId.equals(statistic.discordChannelId) && osuId.equals(statistic.osuId) && username.equals(statistic.username) && globalRank.equals(statistic.globalRank) && countryRank.equals(statistic.countryRank) && pp.equals(statistic.pp) && level.equals(statistic.level) && hitAccuracy.equals(statistic.hitAccuracy) && playTime.equals(statistic.playTime) && playCount.equals(statistic.playCount) && a.equals(statistic.a) && s.equals(statistic.s) && ss.equals(statistic.ss) && sh.equals(statistic.sh) && ssh.equals(statistic.ssh) && period == statistic.period && lastUpdated.equals(statistic.lastUpdated) && nextUpdateTime.equals(statistic.nextUpdateTime) && updateHour.equals(statistic.updateHour);
+        return id.equals(statistic.id) && user.equals(statistic.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, discordUserId, discordChannelId, osuId, username, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, period, lastUpdated, nextUpdateTime, updateHour);
+        return Objects.hash(id, user);
     }
 
     @Override
     public String toString() {
         return "Statistic{" +
                 "id=" + id +
-                ", discordUserId=" + discordUserId +
-                ", discordChannelId=" + discordChannelId +
+                ", discordUserId=" + user.getUserId() +
+                ", discordChannelId=" + user.getChannelId() +
                 ", osuId=" + osuId +
-                ", username='" + username + '\'' +
+                ", username='" + user.getOsuUsername() + '\'' +
                 ", globalRank=" + globalRank +
                 ", countryRank=" + countryRank +
                 ", pp=" + pp +

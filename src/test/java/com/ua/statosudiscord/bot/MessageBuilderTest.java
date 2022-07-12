@@ -2,6 +2,7 @@ package com.ua.statosudiscord.bot;
 
 import com.ua.statosudiscord.persistence.builders.StatisticBuilder;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import com.ua.statosudiscord.persistence.entities.User;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageBuilderTest {
 
     StatisticBuilder oldStatisticBuilder = new StatisticBuilder()
-            .setUsername("testname")
+            .setUser(new User(1L,1L,1L,"testname"))
             .setGlobalRank(629286)
             .setPp(1039.18)
             .setLevel(93.58)
@@ -25,7 +26,7 @@ class MessageBuilderTest {
             .setSsh(0)
             .setLastUpdated(LocalDateTime.of(2022, 7, 11, 12, 12));
     StatisticBuilder newStatisticBuilder = new StatisticBuilder()
-            .setUsername("testname")
+            .setUser(new User(1L,1L,1L,"testname"))
             .setGlobalRank(600000)
             .setPp(1100.05)
             .setLevel(95.3)

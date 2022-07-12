@@ -6,6 +6,7 @@ import com.ua.statosudiscord.persistence.entities.Statistic;
 import java.time.format.DateTimeFormatter;
 
 public class MessageBuilder {
+//    todo:separate builders (for example add error messages etc.)
     private static final String username = "Username: ";
     private static final String globalRank = "Global rank: ";
     private static final String pp = "pp: ";
@@ -22,7 +23,7 @@ public class MessageBuilder {
 
     public static Message createMessage(Statistic old, Statistic updated) {
         StatisticBuilder statisticBuilder = new StatisticBuilder()
-                .setUsername(updated.getUsername())
+                .setUser(updated.getUser())
                 .setGlobalRank(old.getGlobalRank() - updated.getGlobalRank())
                 .setPp(updated.getPp() - old.getPp())
                 .setLevel(updated.getLevel() - old.getLevel())
@@ -41,7 +42,7 @@ public class MessageBuilder {
         Statistic difference = statisticBuilder.build();
         StringBuilder message = new StringBuilder();
         message.append(username)
-                .append(updated.getUsername())
+                .append(updated.getUser().getOsuUsername())
                 .append("\n");
         message.append(globalRank)
                 .append(updated.getGlobalRank())
@@ -113,14 +114,14 @@ public class MessageBuilder {
                 .append("\n");
         message.append(updatedOn)
                 .append(updated.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")));
-        return new Message(updated.getDiscordUserId(), updated.getDiscordChannelId(), message.toString());
+        return new Message(updated.getUser().getUserId(), updated.getUser().getChannelId(), message.toString());
     }
 
     //    show stats when user begins to use bot
     public static Message createMessage(Statistic statistic) {
         StringBuilder message = new StringBuilder();
         message.append(username)
-                .append(statistic.getUsername())
+                .append(statistic.getUser().getOsuUsername())
                 .append("\n");
         message.append(globalRank)
                 .append(statistic.getGlobalRank())
@@ -157,6 +158,6 @@ public class MessageBuilder {
                 .append("\n");
         message.append(updatedOn)
                 .append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")));
-        return new Message(statistic.getDiscordUserId(), statistic.getDiscordChannelId(), message.toString());
+        return new Message(statistic.getUser().getUserId(), statistic.getUser().getChannelId(), message.toString());
     }
 }

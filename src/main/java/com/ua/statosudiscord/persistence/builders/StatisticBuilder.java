@@ -3,18 +3,16 @@ package com.ua.statosudiscord.persistence.builders;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import com.ua.statosudiscord.persistence.entities.User;
 
 import java.time.LocalDateTime;
 
 public class StatisticBuilder {
     private Long id;
-    private Long discordUserId;
 
-    private Long discordChannelId;
+    private User user;
 
     private Long osuId;
-
-    private String username;
 
     private Integer globalRank;
 
@@ -47,18 +45,8 @@ public class StatisticBuilder {
     private LocalDateTime nextUpdateTime;
     private Integer updateHour;
 
-    public StatisticBuilder setDiscordUserId(Long discordUserId) {
-        this.discordUserId = discordUserId;
-        return this;
-    }
-
     public StatisticBuilder setId(Long id) {
         this.id = id;
-        return this;
-    }
-
-    public StatisticBuilder setUsername(String username) {
-        this.username = username;
         return this;
     }
 
@@ -142,17 +130,17 @@ public class StatisticBuilder {
         return this;
     }
 
-    public StatisticBuilder setDiscordChannelId(Long discordChannelId) {
-        this.discordChannelId = discordChannelId;
-        return this;
-    }
-
     public StatisticBuilder setOsuId(Long osuId) {
         this.osuId = osuId;
         return this;
     }
 
+    public StatisticBuilder setUser(User user) {
+        this.user = user;
+        return this;
+    }
+
     public Statistic build() {
-        return new Statistic(id, discordUserId, discordChannelId, osuId, username, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, period, lastUpdated, nextUpdateTime, updateHour);
+        return new Statistic(id, user, osuId, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, period, lastUpdated, nextUpdateTime, updateHour);
     }
 }
