@@ -1,17 +1,23 @@
 package com.ua.statosudiscord.bot.listeners.nickname;
 
 import com.ua.statosudiscord.bot.listeners.ProcessCommand;
+import com.ua.statosudiscord.persistence.entities.User;
+import com.ua.statosudiscord.services.UserService;
 import discord4j.core.object.entity.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
 
 public abstract class NicknameListener implements ProcessCommand {
+    @Autowired
+    private UserService userService;
+
     @Override
     public Mono<Void> processCommand(Message eventMessage) {
         String parametersError = "Wrong request.\\n use: !nickname your_nickname";
         String wrongNickname = "Nickname not found";
         String[] commandWithParameters = eventMessage.getContent().split(" ");
-        boolean isFound = true;//add function for checking nickname in Osu
-        Mono<Void> response;
+        String response;
+        boolean isFound = true;//todo:add function for checking nickname in Osu
         if (eventMessage.getContent().startsWith("!nickname") && (commandWithParameters.length != 2)) {
             return Mono.just(eventMessage)
                     .flatMap(Message::getChannel)
@@ -23,13 +29,25 @@ public abstract class NicknameListener implements ProcessCommand {
                     .flatMap(channel -> channel.createMessage(wrongNickname))
                     .then();
         } else if (eventMessage.getContent().startsWith("!nickname")) {
+            User existedUser = userService.getUser(eventMessage);
+            if (existedUser != null && existedUser.getOsuUsername().equals(commandWithParameters[1])) {
+                response = commandWithParameters[1] + " is already your nickname";
+            }
+            else if(existedUser != null && !existedUser.getOsuUsername().equals(commandWithParameters[1])) {
+                String oldNickname = existedUser.getOsuUsername();
+                existedUser = userService.updateUsername(eventMessage, commandWithParameters[1]);
+                response = "Old username: " + oldNickname + "\n new username: " + existedUser.getOsuUsername();
+            }
+            else {
+                existedUser = userService.addNewUser(eventMessage, commandWithParameters[1]);
+                response = "Welcome. Your osu username is " + existedUser.getOsuUsername();
+            }
             return Mono.just(eventMessage)
                     .filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
                     .flatMap(Message::getChannel)
-                    .flatMap(channel -> channel.createMessage("Your nickname is : " + commandWithParameters[1] ))
+                    .flatMap(channel -> channel.createMessage(response))
                     .then();
-        }
-        else {
+        } else {
             return Mono.empty();
         }
     }

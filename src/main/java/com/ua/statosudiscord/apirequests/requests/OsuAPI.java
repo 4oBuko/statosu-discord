@@ -20,14 +20,14 @@ public class OsuAPI {
     @Autowired
     private TokenManager tokenManager;
 
-    public Statistic getUser(String userId) {
+    public Statistic getUserByUsername(String username) {
         RestTemplateBuilder templateBuilder = new RestTemplateBuilder();
         RestTemplate restTemplate = templateBuilder.build();
         String url = APIEndpoints.GET_USER_CLASSIC;
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", tokenManager.getToken().getTokenType() + " " + tokenManager.getToken().getToken());
         HttpEntity httpEntity = new HttpEntity(headers);
-        ResponseEntity<Statistic> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Statistic.class, userId);
+        ResponseEntity<Statistic> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Statistic.class, username);
         if (response.getStatusCode() == HttpStatus.OK) {
             System.out.println(response.getBody());
             Statistic statistic = response.getBody();
