@@ -31,9 +31,11 @@ public abstract class DateListener implements ProcessCommand {
                     .flatMap(channel -> channel.createMessage(parametersError))
                     .then();
         } else if (commandWithArguments[0].equals("!date")) {
+            UpdatePeriod updatePeriod;
+            int updateTime;
             try {
-                UpdatePeriod updatePeriod = UpdatePeriod.valueOf(commandWithArguments[1]);
-                int updateTime = Integer.parseInt(commandWithArguments[2]);
+                updatePeriod = UpdatePeriod.valueOf(commandWithArguments[1]);
+                updateTime = Integer.parseInt(commandWithArguments[2]);
                 if (!commandWithArguments[0].equals("!date") && (updateTime < 0 || updateTime > 23)) {
                     return Mono.just(eventMessage)
                             .flatMap(Message::getChannel)
@@ -56,7 +58,7 @@ public abstract class DateListener implements ProcessCommand {
             if (existedUser == null) {
                 response = "You cannot use this operation. Use !nickname command first";
             } else {
-                Statistic statistic = statisticService.updateUserStatistic(existedUser);
+                Statistic statistic = statisticService.updateUserStatistic(existedUser,updateTime,updatePeriod);
                     response = MessageBuilder.createMessage(statistic).getMessage();
             }
             return Mono.just(eventMessage).filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))

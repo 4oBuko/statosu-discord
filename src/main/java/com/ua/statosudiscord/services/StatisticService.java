@@ -3,6 +3,7 @@ package com.ua.statosudiscord.services;
 import com.ua.statosudiscord.apirequests.requests.OsuAPI;
 import com.ua.statosudiscord.persistence.SequenceGeneratorService;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
@@ -57,10 +58,13 @@ public class StatisticService {
         return statisticRepository.getStatisticByUser(user);
     }
 
-    public Statistic updateUserStatistic(User user) {
+    public Statistic updateUserStatistic(User user, int updateHour, UpdatePeriod updatePeriod) {
         Statistic statistic = osuAPI.getUserByUsername(user.getOsuUsername());
         statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
         statistic.setUser(user);
+        statistic.setPeriod(updatePeriod);
+        statistic.setUpdateHour(updateHour);
+        TimeUpdater.createNewUpdateTime(statistic);
         statisticRepository.save(statistic);
         return statistic;
     }
