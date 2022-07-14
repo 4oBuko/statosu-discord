@@ -58,14 +58,13 @@ public abstract class DateListener implements ProcessCommand {
             if (existedUser == null) {
                 response = "You cannot use this operation. Use !nickname command first";
             } else {
-                Statistic statistic = statisticService.updateUserStatistic(existedUser,updateTime,updatePeriod);
-                    response = MessageBuilder.createMessage(statistic).getMessage();
+                Statistic statistic = statisticService.addNewStatistic(existedUser, updateTime, updatePeriod);
+                response = MessageBuilder.createMessage(statistic).getMessage();
             }
             return Mono.just(eventMessage).filter(message -> message.getAuthor().map(user -> !user.isBot()).orElse(false))
                     .flatMap(Message::getChannel)
                     .flatMap(channel -> channel.createMessage(response))
                     .then();
-//"You will get your stat " + commandWithArguments[1] + " at " + commandWithArguments[2]
         } else {
             return Mono.empty();
         }

@@ -2,6 +2,7 @@ package com.ua.statosudiscord.bot.listeners.nickname;
 
 import com.ua.statosudiscord.bot.listeners.ProcessCommand;
 import com.ua.statosudiscord.persistence.entities.User;
+import com.ua.statosudiscord.services.StatisticService;
 import com.ua.statosudiscord.services.UserService;
 import discord4j.core.object.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import reactor.core.publisher.Mono;
 public abstract class NicknameListener implements ProcessCommand {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StatisticService statisticService;
 
     @Override
     public Mono<Void> processCommand(Message eventMessage) {

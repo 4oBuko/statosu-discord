@@ -7,7 +7,6 @@ import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
-import discord4j.core.object.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +44,7 @@ public class StatisticService {
             updated.setUpdateHour(statistic.getUpdateHour());
             updated.setPeriod(statistic.getPeriod());
             updated.setNextUpdateTime(statistic.getNextUpdateTime());
-            TimeUpdater.createNewUpdateTime(updated);
+            updated.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updated));
             updatedStatistic.add(updated);
         }
         statisticRepository.saveAll(updatedStatistic);
@@ -58,14 +57,33 @@ public class StatisticService {
         return statisticRepository.getStatisticByUser(user);
     }
 
-    public Statistic updateUserStatistic(User user, int updateHour, UpdatePeriod updatePeriod) {
+    public Statistic addNewStatistic(User user, int updateHour, UpdatePeriod updatePeriod) {
+        Statistic oldStatistic = statisticRepository.getStatisticByUser(user);
         Statistic statistic = osuAPI.getUserByUsername(user.getOsuUsername());
-        statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
-        statistic.setUser(user);
+        if (oldStatistic == null) {
+
+            statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
+            statistic.setUser(user);
+        } else {
+            statistic.setId(oldStatistic.getId());
+            statistic.setUser(oldStatistic.getUser());
+        }
         statistic.setPeriod(updatePeriod);
         statistic.setUpdateHour(updateHour);
-        TimeUpdater.createNewUpdateTime(statistic);
+        statistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(statistic));
         statisticRepository.save(statistic);
         return statistic;
+    }
+
+    public Statistic getNewestStatistic(User user) {
+        Statistic statistic = statisticRepository.getStatisticByUser(user);
+        Statistic updatedStatistic = osuAPI.getUserByUsername(user.getOsuUsername());
+        updatedStatistic.setId(statistic.getId());
+        updatedStatistic.setUser(statistic.getUser());
+        updatedStatistic.setPeriod(statistic.getPeriod());
+        updatedStatistic.setUpdateHour(statistic.getUpdateHour());
+        updatedStatistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updatedStatistic));
+        statisticRepository.save(updatedStatistic);
+        return updatedStatistic;
     }
 }

@@ -16,6 +16,9 @@ public class UserService {
     @Autowired
     private SequenceGeneratorService generatorService;
 
+    @Autowired
+    StatisticService statisticService;
+
     public User addNewUser(Message message, String username) {
         User user = new User(
                 generatorService.generateSequence(User.SEQUENCE_NAME),
@@ -32,6 +35,7 @@ public class UserService {
         if (user != null) {
             user.setOsuUsername(newUsername);
             userRepository.save(user);
+            statisticService.getNewestStatistic(user);
         }
         return user;
     }
