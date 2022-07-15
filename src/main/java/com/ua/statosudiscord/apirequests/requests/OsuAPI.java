@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -39,4 +40,6 @@ public class OsuAPI {
             return null;
         }
     }
+
+//    todo:create method fog get multiple users when endpoint will be available
 }
