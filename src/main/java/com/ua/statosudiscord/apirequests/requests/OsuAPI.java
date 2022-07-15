@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +29,6 @@ public class OsuAPI {
         HttpEntity httpEntity = new HttpEntity(headers);
         ResponseEntity<Statistic> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Statistic.class, username);
         if (response.getStatusCode() == HttpStatus.OK) {
-//            System.out.println(response.getBody());
             Statistic statistic = response.getBody();
             HttpHeaders responseHeaders = response.getHeaders();
             statistic.setLastUpdated(LocalDateTime.ofEpochSecond(responseHeaders.getDate() / 1000, 0, ZoneOffset.UTC));

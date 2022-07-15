@@ -11,16 +11,16 @@ public class TimeUpdater {
     public static LocalDateTime getNextUpdateTime(Statistic statistic) {
         LocalDate localDate = statistic.getLastUpdated().toLocalDate();
         LocalTime time = LocalTime.MIDNIGHT;
-        time.plusHours(statistic.getUpdateHour());
-        localDate.plusDays(
+        time = time.plusHours(statistic.getUpdateHour());
+        localDate = localDate.plusDays(
                 statistic.getPeriod().compareTo(UpdatePeriod.daily) == 0 ? 1 : 0
         );
-        localDate.plusWeeks(
+        localDate = localDate.plusWeeks(
                 statistic.getPeriod().compareTo(UpdatePeriod.weekly) == 0 ? 1 : 0
         );
-        localDate.plusMonths(
+        localDate = localDate.plusMonths(
                 statistic.getPeriod().compareTo(UpdatePeriod.monthly) == 0 ? 1 : 0
         );
-        return LocalDateTime.of(localDate,time);
+        return LocalDateTime.of(localDate, time);
     }
 }

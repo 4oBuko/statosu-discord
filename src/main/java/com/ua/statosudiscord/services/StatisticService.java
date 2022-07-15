@@ -43,7 +43,6 @@ public class StatisticService {
             updated.setLastUpdated(time);
             updated.setUpdateHour(statistic.getUpdateHour());
             updated.setPeriod(statistic.getPeriod());
-            updated.setNextUpdateTime(statistic.getNextUpdateTime());
             updated.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updated));
             updatedStatistic.add(updated);
         }
@@ -61,7 +60,6 @@ public class StatisticService {
         Statistic oldStatistic = statisticRepository.getStatisticByUser(user);
         Statistic statistic = osuAPI.getUserByUsername(user.getOsuUsername());
         if (oldStatistic == null) {
-
             statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
             statistic.setUser(user);
         } else {
@@ -85,5 +83,9 @@ public class StatisticService {
         updatedStatistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updatedStatistic));
         statisticRepository.save(updatedStatistic);
         return updatedStatistic;
+    }
+
+    public List<Statistic> getStatisticsByNextUpdateTime(LocalDateTime time) {
+        return statisticRepository.findByNextUpdateTime(time);
     }
 }
