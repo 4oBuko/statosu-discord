@@ -20,7 +20,7 @@ public class ScheduledStatisticUpdatingService {
     @Autowired
     MessageSender messageSender;
 
-    @Scheduled(cron = "0 0 0 * * *")//check for updates every hour
+    @Scheduled(cron = "0 0 * * * *")//check for updates every hour
     public void updateStatisticAndSend() {
         System.out.println("Event happened" + LocalDateTime.now());
         LocalDateTime updateTime = LocalDateTime.of(
