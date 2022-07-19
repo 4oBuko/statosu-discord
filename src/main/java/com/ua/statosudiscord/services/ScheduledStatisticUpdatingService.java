@@ -22,26 +22,19 @@ public class ScheduledStatisticUpdatingService {
 
     @Scheduled(cron = "0 0 * * * *")//check for updates every hour
     public void updateStatisticAndSend() {
-        System.out.println("Event happened" + LocalDateTime.now());
         LocalDateTime updateTime = LocalDateTime.of(
                 LocalDate.now(), LocalTime.MIDNIGHT.plusHours(LocalDateTime.now().getHour()
                 )
         );
 
-        System.out.println(updateTime);
         List<Statistic> oldStatistic = statisticService.getStatisticsByNextUpdateTime(updateTime);
         List<Statistic> updatedStatistic = statisticService.updateStatistic(updateTime);
-        System.out.println(oldStatistic.size());
-        System.out.println(updatedStatistic.size());
 
         for (int i = 0; i < updatedStatistic.size(); i++) {
-            System.out.println("Old statistic:\n" + oldStatistic.get(i));
-            System.out.println("Updated statistic:\n " + updatedStatistic.get(i));
             if (oldStatistic.get(i).getId().equals(updatedStatistic.get(i).getId())) {
                 Message message = MessageBuilder.createMessage(oldStatistic.get(i), updatedStatistic.get(i));
                 messageSender.sendTestMessageInChannelWithUserMention(message);
             }
         }
-        System.out.println("ended");
     }
 }

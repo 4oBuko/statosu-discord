@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface StatisticRepository extends MongoRepository<Statistic, Long> {
 
-    List<Statistic> findByNextUpdateTime(LocalDateTime nextUpdateTime);
+    List<Statistic> findAllByNextUpdateTimeIsBeforeOrderById(LocalDateTime nextUpdateTime);
     Statistic getStatisticByUser(User user);
 }
