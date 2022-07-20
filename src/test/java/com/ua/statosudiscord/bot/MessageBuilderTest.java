@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageBuilderTest {
 
     StatisticBuilder oldStatisticBuilder = new StatisticBuilder()
-            .setUser(new User(1L,1L,1L,"testname"))
+            .setUser(new User(1L, 1L, 1L, "testname"))
             .setGlobalRank(629286)
             .setPp(1039.18)
             .setLevel(93.58)
@@ -26,7 +26,7 @@ class MessageBuilderTest {
             .setSsh(0)
             .setLastUpdated(LocalDateTime.of(2022, 7, 11, 12, 12));
     StatisticBuilder newStatisticBuilder = new StatisticBuilder()
-            .setUser(new User(1L,1L,1L,"testname"))
+            .setUser(new User(1L, 1L, 1L, "testname"))
             .setGlobalRank(600000)
             .setPp(1100.05)
             .setLevel(95.3)
@@ -62,7 +62,8 @@ class MessageBuilderTest {
 
     @Test
     public void createMessageWithTwoParametersProgressInAllFields() {
-        String message = "Username: testname\n" +
+        String message = "Previous update: 12:12 Jul 29,2022\n" +
+                "Username: testname\n" +
                 "Global rank: 600000(+29286)\n" +
                 "pp: 1100.05(+60.87)\n" +
                 "Level: 95.3(+1.72)\n" +
@@ -74,13 +75,14 @@ class MessageBuilderTest {
                 "SS: 6(+2)\n" +
                 "S+: 2(+1)\n" +
                 "SS+: 1(+1)\n" +
-                "Updated on: Jul 29,2022";
+                "Updated on: 12:12 Jul 29,2022";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, newStatistic).getMessage());
     }
 
     @Test
     public void createMessageWithTwoParametersRegressInAllFields() {
-        String message = "Username: testname\n" +
+        String message = "Previous update: 12:12 Jul 11,2022\n" +
+                "Username: testname\n" +
                 "Global rank: 629286(-29286)\n" +
                 "pp: 1039.18(-60.87)\n" +
                 "Level: 93.58(-1.72)\n" +
@@ -92,13 +94,14 @@ class MessageBuilderTest {
                 "SS: 4(-2)\n" +
                 "S+: 1(-1)\n" +
                 "SS+: 0(-1)\n" +
-                "Updated on: Jul 11,2022";
+                "Updated on: 12:12 Jul 11,2022";
         assertEquals(message, MessageBuilder.createMessage(newStatistic, oldStatistic).getMessage());
     }
 
     @Test
     public void createMessageWithTwoParametersNoProgress() {
-        String message = "Username: testname\n" +
+        String message = "Previous update: 12:12 Jul 11,2022\n" +
+                "Username: testname\n" +
                 "Global rank: 629286(+0)\n" +
                 "pp: 1039.18(+0.00)\n" +
                 "Level: 93.58(+0.00)\n" +
@@ -110,7 +113,7 @@ class MessageBuilderTest {
                 "SS: 4(+0)\n" +
                 "S+: 1(+0)\n" +
                 "SS+: 0(+0)\n" +
-                "Updated on: Jul 11,2022";
+                "Updated on: 12:12 Jul 11,2022";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, oldStatistic).getMessage());
     }
 }

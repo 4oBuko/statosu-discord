@@ -6,7 +6,8 @@ import com.ua.statosudiscord.persistence.entities.Statistic;
 import java.time.format.DateTimeFormatter;
 
 public class MessageBuilder {
-//    todo:separate builders (for example add error messages etc.)
+    //    todo:separate builders (for example add error messages etc.)
+    private static final String previousUpdate = "Previous update: ";
     private static final String username = "Username: ";
     private static final String globalRank = "Global rank: ";
     private static final String pp = "pp: ";
@@ -41,6 +42,9 @@ public class MessageBuilder {
                 .setUpdateHour(updated.getUpdateHour());
         Statistic difference = statisticBuilder.build();
         StringBuilder message = new StringBuilder();
+        message.append(previousUpdate)
+                .append(updated.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")))
+                .append("\n");
         message.append(username)
                 .append(updated.getUser().getOsuUsername())
                 .append("\n");
@@ -113,7 +117,7 @@ public class MessageBuilder {
                 .append(")")
                 .append("\n");
         message.append(updatedOn)
-                .append(updated.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")));
+                .append(updated.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")));
         return new Message(updated.getUser().getUserId(), updated.getUser().getChannelId(), message.toString());
     }
 
