@@ -13,7 +13,6 @@ public class MessageSender {
     GatewayDiscordClient gatewayDiscordClient;
 
     public void sendTestMessageInChannelWithUserMention(Message message) {
-        System.out.println("message sent");
         gatewayDiscordClient.getChannelById(Snowflake.of(message.getDiscordChannelId()))
                 .ofType(MessageChannel.class)
                 .flatMap(channel -> channel.createMessage("<@" + message.getDiscordUserId() + ">\n" + message.getMessage()))
