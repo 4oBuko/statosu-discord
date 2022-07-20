@@ -38,7 +38,7 @@ class MessageBuilderTest {
             .setSs(6)
             .setSh(2)
             .setSsh(1)
-            .setLastUpdated(LocalDateTime.of(2022, 7, 29, 12, 12));
+            .setLastUpdated(LocalDateTime.of(2022, 7, 30, 12, 12));
     Statistic oldStatistic = oldStatisticBuilder.build();
     Statistic newStatistic = newStatisticBuilder.build();
 
@@ -62,7 +62,7 @@ class MessageBuilderTest {
 
     @Test
     public void createMessageWithTwoParametersProgressInAllFields() {
-        String message = "Previous update: 12:12 Jul 29,2022\n" +
+        String message = "Previous update: 12:12 Jul 11,2022\n" +
                 "Username: testname\n" +
                 "Global rank: 600000(+29286)\n" +
                 "pp: 1100.05(+60.87)\n" +
@@ -75,13 +75,13 @@ class MessageBuilderTest {
                 "SS: 6(+2)\n" +
                 "S+: 2(+1)\n" +
                 "SS+: 1(+1)\n" +
-                "Updated on: 12:12 Jul 29,2022";
+                "Updated on: 12:12 Jul 30,2022";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, newStatistic).getMessage());
     }
 
     @Test
     public void createMessageWithTwoParametersRegressInAllFields() {
-        String message = "Previous update: 12:12 Jul 11,2022\n" +
+        String message = "Previous update: 12:12 Jul 30,2022\n" +
                 "Username: testname\n" +
                 "Global rank: 629286(-29286)\n" +
                 "pp: 1039.18(-60.87)\n" +

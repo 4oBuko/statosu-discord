@@ -37,13 +37,13 @@ public class MessageBuilder {
                 .setSh(updated.getSh() - old.getSh())
                 .setSsh(updated.getSsh() - old.getSsh())
                 .setPeriod(updated.getPeriod())
-                .setLastUpdated(updated.getLastUpdated())
+                .setLastUpdated(old.getLastUpdated())
                 .setNextUpdateTime(updated.getNextUpdateTime())
                 .setUpdateHour(updated.getUpdateHour());
         Statistic difference = statisticBuilder.build();
         StringBuilder message = new StringBuilder();
         message.append(previousUpdate)
-                .append(updated.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")))
+                .append(old.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")))
                 .append("\n");
         message.append(username)
                 .append(updated.getUser().getOsuUsername())
