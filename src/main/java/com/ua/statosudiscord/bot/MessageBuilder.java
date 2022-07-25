@@ -22,6 +22,10 @@ public class MessageBuilder {
     private static final String ssh = "SS+: ";
     private static final String updatedOn = "Updated on: ";
 
+    private static final String nextUpdate = "Next update: ";
+
+    private static  final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu");
+
     public static Message createMessage(Statistic old, Statistic updated) {
         StatisticBuilder statisticBuilder = new StatisticBuilder()
                 .setUser(updated.getUser())
@@ -43,7 +47,7 @@ public class MessageBuilder {
         Statistic difference = statisticBuilder.build();
         StringBuilder message = new StringBuilder();
         message.append(previousUpdate)
-                .append(old.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")))
+                .append(old.getLastUpdated().format(dateTimeFormatter))
                 .append("\n");
         message.append(username)
                 .append(updated.getUser().getOsuUsername())
@@ -117,7 +121,10 @@ public class MessageBuilder {
                 .append(")")
                 .append("\n");
         message.append(updatedOn)
-                .append(updated.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")));
+                .append(updated.getLastUpdated().format(dateTimeFormatter))
+                .append("\n");
+        message.append(nextUpdate)
+                .append(updated.getNextUpdateTime().format(dateTimeFormatter));
         return new Message(updated.getUser().getUserId(), updated.getUser().getChannelId(), message.toString());
     }
 
@@ -161,7 +168,10 @@ public class MessageBuilder {
                 .append(statistic.getSsh())
                 .append("\n");
         message.append(updatedOn)
-                .append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")));
+                .append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")))
+                .append("\n");
+        message.append(nextUpdate)
+                .append(statistic.getNextUpdateTime().format(dateTimeFormatter));
         return new Message(statistic.getUser().getUserId(), statistic.getUser().getChannelId(), message.toString());
     }
 }
