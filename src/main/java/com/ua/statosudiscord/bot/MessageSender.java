@@ -3,6 +3,7 @@ package com.ua.statosudiscord.bot;
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.channel.MessageChannel;
+import io.netty.channel.ChannelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class MessageSender {
         gatewayDiscordClient.getChannelById(Snowflake.of(message.getDiscordChannelId()))
                 .ofType(MessageChannel.class)
                 .flatMap(channel -> channel.createMessage("<@" + message.getDiscordUserId() + ">\n" + message.getMessage()))
+                .doOnError(error -> System.out.println("Error: " + error.getMessage()))
                 .subscribe();
     }
 }
