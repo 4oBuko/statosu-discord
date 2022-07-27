@@ -1,7 +1,7 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.bot.Message;
-import com.ua.statosudiscord.bot.MessageBuilder;
+import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.bot.MessageSender;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;

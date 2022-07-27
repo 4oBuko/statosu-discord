@@ -1,4 +1,4 @@
-package com.ua.statosudiscord.services;
+package com.ua.statosudiscord.utils;
 
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
