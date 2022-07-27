@@ -89,14 +89,6 @@ public class Statistic implements Serializable {
         ssh = (Integer) gradeCounts.get("ssh");
     }
 
-//    redundant because user doesn't need
-//    @JsonProperty("username")
-//    public void parseUsername(String username) {
-//        if (!user.getOsuUsername().equals(username))
-//            user.setOsuUsername(username);
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

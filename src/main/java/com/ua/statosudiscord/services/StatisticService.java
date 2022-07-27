@@ -7,6 +7,7 @@ import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
+import com.ua.statosudiscord.utils.TimeUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,10 +52,6 @@ public class StatisticService {
         return updatedStatistic;
     }
 
-
-    public Statistic getLastUserStatistic(User user) {
-        return statisticRepository.getStatisticByUser(user);
-    }
 
     public Statistic addNewStatistic(User user, int updateHour, UpdatePeriod updatePeriod) {
         Statistic oldStatistic = statisticRepository.getStatisticByUser(user);

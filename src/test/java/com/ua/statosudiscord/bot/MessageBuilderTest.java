@@ -3,6 +3,7 @@ package com.ua.statosudiscord.bot;
 import com.ua.statosudiscord.persistence.builders.StatisticBuilder;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.User;
+import com.ua.statosudiscord.utils.MessageBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

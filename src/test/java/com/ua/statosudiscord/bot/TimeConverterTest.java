@@ -1,5 +1,6 @@
 package com.ua.statosudiscord.bot;
 
+import com.ua.statosudiscord.utils.TimeConverter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

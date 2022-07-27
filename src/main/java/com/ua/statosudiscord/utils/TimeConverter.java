@@ -1,4 +1,4 @@
-package com.ua.statosudiscord.bot;
+package com.ua.statosudiscord.utils;
 
 public class TimeConverter {
     public static String convertSecondsToString(int sec) {

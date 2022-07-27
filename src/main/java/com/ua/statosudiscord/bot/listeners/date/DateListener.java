@@ -1,6 +1,6 @@
 package com.ua.statosudiscord.bot.listeners.date;
 
-import com.ua.statosudiscord.bot.MessageBuilder;
+import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.bot.listeners.ProcessCommand;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
