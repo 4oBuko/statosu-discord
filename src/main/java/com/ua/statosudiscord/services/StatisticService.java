@@ -32,7 +32,7 @@ public class StatisticService {
 
 
     public List<Statistic> updateStatistic(LocalDateTime time) {
-        List<Statistic> statisticList = statisticRepository.findAllByNextUpdateTimeIsBeforeOrderById(time);
+        List<Statistic> statisticList = statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderById(time);
         List<Statistic> updatedStatistic = new ArrayList<>();
 //      todo:rewrite using getUsers method from osuApi
         for (Statistic statistic : statisticList) {
@@ -83,6 +83,6 @@ public class StatisticService {
     }
 
     public List<Statistic> getStatisticsByNextUpdateTime(LocalDateTime time) {
-        return statisticRepository.findAllByNextUpdateTimeIsBeforeOrderById(time);
+        return statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderById(time);
     }
 }
