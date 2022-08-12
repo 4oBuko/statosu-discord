@@ -170,7 +170,7 @@ public class MessageBuilder {
                 .append(statistic.getSsh())
                 .append("\n");
         message.append(updatedOn)
-                .append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("LLL dd,uuuu")))
+                .append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")))
                 .append("\n");
         message.append(nextUpdate)
                 .append(statistic.getNextUpdateTime().format(dateTimeFormatter));

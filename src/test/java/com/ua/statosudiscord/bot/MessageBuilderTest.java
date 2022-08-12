@@ -60,7 +60,7 @@ class MessageBuilderTest {
                 "SS: 4\n" +
                 "S+: 1\n" +
                 "SS+: 0\n" +
-                "Updated on: Jul 11,2022\n"+
+                "Updated on: 12:12 Jul 11,2022\n"+
                 "Next update: 12:00 Jul 18,2022";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic).getMessage());
     }

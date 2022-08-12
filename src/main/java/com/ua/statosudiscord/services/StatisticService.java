@@ -41,7 +41,6 @@ public class StatisticService {
             );
             updated.setId(statistic.getId());
             updated.setUser(statistic.getUser());
-            updated.setLastUpdated(time);
             updated.setUpdateHour(statistic.getUpdateHour());
             updated.setPeriod(statistic.getPeriod());
             updated.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updated));
