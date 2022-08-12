@@ -29,7 +29,8 @@ public class TokenManager {
     }
 
     public AccessToken getToken() {
-        if (accessToken == null || LocalDateTime.now().isAfter(accessToken.getResponseTime().plusSeconds(accessToken.getExpiresIn()))) {
+        LocalDateTime expiresAt = accessToken.getResponseTime().plusSeconds(accessToken.getExpiresIn());
+        if (accessToken == null || LocalDateTime.now().isAfter(expiresAt) || LocalDateTime.now().isEqual(expiresAt)) {
             generateAccessToken();
         }
         return accessToken;
