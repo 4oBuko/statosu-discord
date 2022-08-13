@@ -1,5 +1,6 @@
 package com.ua.statosudiscord.apirequests;
 
+import com.ua.statosudiscord.utils.caching.TokenObjectSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,8 @@ import java.util.Map;
 
 @Service
 public class TokenManager {
+    private static final String CACHE_PATH = "/.cache/token.json";
+    TokenObjectSerializer tokenObjectSerializer = new TokenObjectSerializer();
     private static String clientSecret;
     private static String clientId;
     private AccessToken accessToken;
@@ -29,8 +32,13 @@ public class TokenManager {
     }
 
     public AccessToken getToken() {
-        LocalDateTime expiresAt = accessToken.getResponseTime().plusSeconds(accessToken.getExpiresIn());
-        if (accessToken == null || LocalDateTime.now().isAfter(expiresAt) || LocalDateTime.now().isEqual(expiresAt)) {
+        if (accessToken == null) {
+            accessToken = tokenObjectSerializer.getFromCache(CACHE_PATH);
+        }
+        //generate new token if cache is empty or token is expired
+        if (accessToken == null
+                || LocalDateTime.now().isAfter(accessToken.getResponseTime().plusSeconds(accessToken.getExpiresIn()))
+                || LocalDateTime.now().isEqual(accessToken.getResponseTime().plusSeconds(accessToken.getExpiresIn()))) {
             generateAccessToken();
         }
         return accessToken;
@@ -51,6 +59,7 @@ public class TokenManager {
             headers.getDate();
             accessToken = response.getBody();
             accessToken.setResponseTime(LocalDateTime.ofEpochSecond(headers.getDate() / 1000, 0, ZoneOffset.UTC));
+            tokenObjectSerializer.cacheObject(accessToken, CACHE_PATH);
         } else {
 //            throw an error
         }
