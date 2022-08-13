@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Service
 public class TokenManager {
-    private static final String CACHE_PATH = "/.cache/token.json";
+    private static final String CACHE_PATH = ".cache/token.json";
     TokenObjectSerializer tokenObjectSerializer = new TokenObjectSerializer();
     private static String clientSecret;
     private static String clientId;
