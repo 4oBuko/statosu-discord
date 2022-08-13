@@ -8,6 +8,9 @@ import java.io.IOException;
 
 public class TokenObjectSerializer implements ObjectSerializer<AccessToken> {
     private final ObjectMapper objectMapper = new ObjectMapper();
+    {
+        objectMapper.findAndRegisterModules();
+    }
 
     @Override
     public void cacheObject(AccessToken object, String path) {
