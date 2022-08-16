@@ -19,7 +19,7 @@ import java.time.ZoneOffset;
 @Service
 @AllArgsConstructor
 public class OsuAPI {
-    Logger logger = LoggerFactory.getLogger(OsuAPI.class);
+    final Logger logger = LoggerFactory.getLogger(OsuAPI.class);
     @Autowired
     private TokenManager tokenManager;
 
