@@ -2,11 +2,14 @@ package com.ua.statosudiscord.utils.caching;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ua.statosudiscord.apirequests.AccessToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
 public class TokenObjectSerializer implements ObjectSerializer<AccessToken> {
+    Logger logger = LoggerFactory.getLogger(TokenObjectSerializer.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
     {
         objectMapper.findAndRegisterModules();
@@ -17,7 +20,7 @@ public class TokenObjectSerializer implements ObjectSerializer<AccessToken> {
         try {
             objectMapper.writeValue(new File(path), object);
         } catch (IOException e) {
-            System.out.println("Serialization failed");
+            logger.error("Serialization failed: " + e.getMessage());
         }
     }
 
@@ -26,7 +29,7 @@ public class TokenObjectSerializer implements ObjectSerializer<AccessToken> {
         try {
             return objectMapper.readValue(new File(path), AccessToken.class);
         } catch (IOException e) {
-            System.out.println("Deserialization failed");
+            logger.error("Deserialization failed:" + e.getMessage());
             return null;
         }
     }

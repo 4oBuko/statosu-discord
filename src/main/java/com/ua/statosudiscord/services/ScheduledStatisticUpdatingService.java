@@ -4,6 +4,8 @@ import com.ua.statosudiscord.bot.Message;
 import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.bot.MessageSender;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.List;
 @Service
 public class ScheduledStatisticUpdatingService {
 
+    Logger logger = LoggerFactory.getLogger(ScheduledStatisticUpdatingService.class);
     @Autowired
     private StatisticService statisticService;
 
@@ -26,15 +29,16 @@ public class ScheduledStatisticUpdatingService {
                 LocalDate.now(), LocalTime.MIDNIGHT.plusHours(LocalDateTime.now().getHour()
                 )
         );
-
+        logger.debug("Current time: " + updateTime);
         List<Statistic> oldStatistic = statisticService.getStatisticsByNextUpdateTime(updateTime);
         List<Statistic> updatedStatistic = statisticService.updateStatistic(updateTime);
-
+        logger.debug("Statistic was updated");
         for (int i = 0; i < updatedStatistic.size(); i++) {
             if (oldStatistic.get(i).getId().equals(updatedStatistic.get(i).getId())) {
                 Message message = MessageBuilder.createMessage(oldStatistic.get(i), updatedStatistic.get(i));
                 messageSender.sendTestMessageInChannelWithUserMention(message);
             }
         }
+        logger.debug("Message were sent");
     }
 }

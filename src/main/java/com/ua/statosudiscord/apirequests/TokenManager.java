@@ -1,11 +1,14 @@
 package com.ua.statosudiscord.apirequests;
 
 import com.ua.statosudiscord.utils.caching.TokenObjectSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
@@ -15,8 +18,9 @@ import java.util.Map;
 
 @Service
 public class TokenManager {
+    Logger logger = LoggerFactory.getLogger(TokenManager.class);
     private static final String CACHE_PATH = ".cache/token.json";
-    TokenObjectSerializer tokenObjectSerializer = new TokenObjectSerializer();
+    private final TokenObjectSerializer tokenObjectSerializer = new TokenObjectSerializer();
     private static String clientSecret;
     private static String clientId;
     private AccessToken accessToken;
@@ -53,7 +57,6 @@ public class TokenManager {
         requestBody.put("grant_type", "client_credentials");
         requestBody.put("scope", "public");
         ResponseEntity<AccessToken> response = restTemplate.postForEntity(requestURL, requestBody, AccessToken.class);
-        System.out.println(response);
         if (response.getStatusCode() == HttpStatus.OK) {
             HttpHeaders headers = response.getHeaders();
             headers.getDate();
@@ -61,7 +64,8 @@ public class TokenManager {
             accessToken.setResponseTime(LocalDateTime.ofEpochSecond(headers.getDate() / 1000, 0, ZoneOffset.UTC));
             tokenObjectSerializer.cacheObject(accessToken, CACHE_PATH);
         } else {
-//            throw an error
+            logger.error("Access token request failed: Http status:" + response.getStatusCode());
+            accessToken = null;
         }
     }
 }

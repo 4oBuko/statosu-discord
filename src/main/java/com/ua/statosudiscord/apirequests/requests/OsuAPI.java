@@ -4,6 +4,8 @@ import com.ua.statosudiscord.apirequests.APIEndpoints;
 import com.ua.statosudiscord.apirequests.TokenManager;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -17,7 +19,7 @@ import java.time.ZoneOffset;
 @Service
 @AllArgsConstructor
 public class OsuAPI {
-
+    Logger logger = LoggerFactory.getLogger(OsuAPI.class);
     @Autowired
     private TokenManager tokenManager;
 
@@ -36,11 +38,11 @@ public class OsuAPI {
                 statistic.setLastUpdated(LocalDateTime.ofEpochSecond(responseHeaders.getDate() / 1000, 0, ZoneOffset.UTC));
                 return response.getBody();
             } else {
-                System.out.println("Error happened.Status code: " + response.getStatusCode());
+                logger.error("Request failed. Status code: " + response.getStatusCode());
                 return null;
             }
         } catch (RestClientException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return null;
     }
