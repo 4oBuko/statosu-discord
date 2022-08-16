@@ -70,18 +70,15 @@ public class Statistic implements Serializable {
 
     @JsonProperty("statistics")
     private void unpackStatistic(Map<String, Object> statistics) {
-        System.out.println(statistics);
         globalRank = (Integer) statistics.get("global_rank");
         countryRank = (Integer) statistics.get("country_rank");
         pp = (Double) statistics.get("pp");
         Map<String, Object> level = (Map<String, Object>) statistics.get("level");
-        System.out.println(level);
         this.level = (Integer) level.get("current") + ((Integer) level.get("progress") / 100.0);
         hitAccuracy = (Double) statistics.get("hit_accuracy");
         playTime = (Integer) statistics.get("play_time");
         playCount = (Integer) statistics.get("play_count");
         Map<String, Object> gradeCounts = (Map<String, Object>) statistics.get("grade_counts");
-        System.out.println(gradeCounts);
         a = (Integer) gradeCounts.get("a");
         s = (Integer) gradeCounts.get("s");
         ss = (Integer) gradeCounts.get("ss");
