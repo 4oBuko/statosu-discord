@@ -11,6 +11,7 @@ import com.ua.statosudiscord.utils.TimeUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,6 @@ public class StatisticService {
             );
             updated.setId(statistic.getId());
             updated.setUser(statistic.getUser());
-            updated.setUpdateHour(statistic.getUpdateHour());
-            updated.setPeriod(statistic.getPeriod());
             updated.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updated));
             updatedStatistic.add(updated);
         }
@@ -52,7 +51,7 @@ public class StatisticService {
     }
 
 
-    public Statistic addNewStatistic(User user, int updateHour, UpdatePeriod updatePeriod) {
+    public Statistic addNewStatistic(User user, int updateHour, UpdatePeriod updatePeriod, DayOfWeek dayOfWeek, Integer dayOfMonth) {
         Statistic oldStatistic = statisticRepository.getStatisticByUser(user);
         Statistic statistic = osuAPI.getUserByUsername(user.getOsuUsername());
         if (oldStatistic == null) {
@@ -62,8 +61,7 @@ public class StatisticService {
             statistic.setId(oldStatistic.getId());
             statistic.setUser(oldStatistic.getUser());
         }
-        statistic.setPeriod(updatePeriod);
-        statistic.setUpdateHour(updateHour);
+//        todo: insert update time in user
         statistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(statistic));
         statisticRepository.save(statistic);
         return statistic;
@@ -74,8 +72,6 @@ public class StatisticService {
         Statistic updatedStatistic = osuAPI.getUserByUsername(user.getOsuUsername());
         updatedStatistic.setId(statistic.getId());
         updatedStatistic.setUser(statistic.getUser());
-        updatedStatistic.setPeriod(statistic.getPeriod());
-        updatedStatistic.setUpdateHour(statistic.getUpdateHour());
         updatedStatistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updatedStatistic));
         statisticRepository.save(updatedStatistic);
         return updatedStatistic;
