@@ -61,8 +61,6 @@ public class Statistic implements Serializable {
 
     private Integer ssh;
 
-    private UpdatePeriod period;
-
     private LocalDateTime lastUpdated;
 
     private LocalDateTime nextUpdateTime;
@@ -119,7 +117,6 @@ public class Statistic implements Serializable {
                 ", ss=" + ss +
                 ", sh=" + sh +
                 ", ssh=" + ssh +
-                ", period=" + period +
                 ", lastUpdated=" + lastUpdated +
                 ", nextUpdateTime=" + nextUpdateTime +
                 ", updateHour=" + updateHour +
