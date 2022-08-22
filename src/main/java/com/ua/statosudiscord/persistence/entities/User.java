@@ -33,6 +33,8 @@ public class User {
 
     private Integer dayOfMonth;
 
+    private Integer updateTime;
+
 
     public User(Long channelId, Long userId, String osuUsername) {
         this.channelId = channelId;
@@ -40,25 +42,16 @@ public class User {
         this.osuUsername = osuUsername;
     }
 
-    public User(Long channelId, Long userId, String osuUsername, UpdatePeriod updatePeriod, DayOfWeek dayOfWeek, Integer dayOfMonth) {
-        this.channelId = channelId;
-        this.userId = userId;
-        this.osuUsername = osuUsername;
-        this.updatePeriod = updatePeriod;
-        this.dayOfWeek = dayOfWeek;
-        this.dayOfMonth = dayOfMonth;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return channelId.equals(user.channelId) && userId.equals(user.userId) && osuUsername.equals(user.osuUsername) && updatePeriod == user.updatePeriod && dayOfWeek == user.dayOfWeek && Objects.equals(dayOfMonth, user.dayOfMonth);
+        return id.equals(user.id) && channelId.equals(user.channelId) && userId.equals(user.userId) && osuUsername.equals(user.osuUsername) && updatePeriod == user.updatePeriod && dayOfWeek == user.dayOfWeek && Objects.equals(dayOfMonth, user.dayOfMonth) && updateTime.equals(user.updateTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, channelId, userId, osuUsername,updatePeriod, dayOfWeek, dayOfMonth);
+        return Objects.hash(id, channelId, userId, osuUsername, updatePeriod, dayOfWeek, dayOfMonth, updateTime);
     }
 }

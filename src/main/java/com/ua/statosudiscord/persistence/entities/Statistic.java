@@ -64,8 +64,6 @@ public class Statistic implements Serializable {
     private LocalDateTime lastUpdated;
 
     private LocalDateTime nextUpdateTime;
-    private Integer updateHour;
-
     @JsonProperty("statistics")
     private void unpackStatistic(Map<String, Object> statistics) {
         globalRank = (Integer) statistics.get("global_rank");
@@ -119,7 +117,6 @@ public class Statistic implements Serializable {
                 ", ssh=" + ssh +
                 ", lastUpdated=" + lastUpdated +
                 ", nextUpdateTime=" + nextUpdateTime +
-                ", updateHour=" + updateHour +
                 '}';
     }
 }
