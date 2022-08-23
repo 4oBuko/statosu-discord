@@ -2,10 +2,12 @@ package com.ua.statosudiscord.bot;
 
 import com.ua.statosudiscord.persistence.builders.StatisticBuilder;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.utils.MessageBuilder;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageBuilderTest {
 
     StatisticBuilder oldStatisticBuilder = new StatisticBuilder()
-            .setUser(new User(1L, 1L, 1L, "testname"))
+            .setUser(new User(1L, 1L, 1L, "testname", UpdatePeriod.daily, DayOfWeek.MONDAY, 0, 1))
             .setGlobalRank(629286)
             .setPp(1039.18)
             .setLevel(93.58)
@@ -26,9 +28,9 @@ class MessageBuilderTest {
             .setSh(1)
             .setSsh(0)
             .setLastUpdated(LocalDateTime.of(2022, 7, 11, 12, 12))
-            .setNextUpdateTime(LocalDateTime.of(2022,7,18,12,0));
+            .setNextUpdateTime(LocalDateTime.of(2022, 7, 18, 12, 0));
     StatisticBuilder newStatisticBuilder = new StatisticBuilder()
-            .setUser(new User(1L, 1L, 1L, "testname"))
+            .setUser(new User(1L, 1L, 1L, "testname", UpdatePeriod.daily, DayOfWeek.MONDAY, 0, 1))
             .setGlobalRank(600000)
             .setPp(1100.05)
             .setLevel(95.3)
@@ -41,7 +43,7 @@ class MessageBuilderTest {
             .setSh(2)
             .setSsh(1)
             .setLastUpdated(LocalDateTime.of(2022, 7, 30, 12, 12))
-            .setNextUpdateTime(LocalDateTime.of(2022,8,6,12,0));
+            .setNextUpdateTime(LocalDateTime.of(2022, 8, 6, 12, 0));
 
     Statistic oldStatistic = oldStatisticBuilder.build();
     Statistic newStatistic = newStatisticBuilder.build();
@@ -60,7 +62,7 @@ class MessageBuilderTest {
                 "SS: 4\n" +
                 "S+: 1\n" +
                 "SS+: 0\n" +
-                "Updated on: 12:12 Jul 11,2022\n"+
+                "Updated on: 12:12 Jul 11,2022\n" +
                 "Next update: 12:00 Jul 18,2022";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic).getMessage());
     }
@@ -80,7 +82,7 @@ class MessageBuilderTest {
                 "SS: 6(+2)\n" +
                 "S+: 2(+1)\n" +
                 "SS+: 1(+1)\n" +
-                "Updated on: 12:12 Jul 30,2022\n"+
+                "Updated on: 12:12 Jul 30,2022\n" +
                 "Next update: 12:00 Aug 06,2022";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, newStatistic).getMessage());
     }
@@ -100,7 +102,7 @@ class MessageBuilderTest {
                 "SS: 4(-2)\n" +
                 "S+: 1(-1)\n" +
                 "SS+: 0(-1)\n" +
-                "Updated on: 12:12 Jul 11,2022\n"+
+                "Updated on: 12:12 Jul 11,2022\n" +
                 "Next update: 12:00 Jul 18,2022";
         assertEquals(message, MessageBuilder.createMessage(newStatistic, oldStatistic).getMessage());
     }
@@ -120,7 +122,7 @@ class MessageBuilderTest {
                 "SS: 4(+0)\n" +
                 "S+: 1(+0)\n" +
                 "SS+: 0(+0)\n" +
-                "Updated on: 12:12 Jul 11,2022\n"+
+                "Updated on: 12:12 Jul 11,2022\n" +
                 "Next update: 12:00 Jul 18,2022";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, oldStatistic).getMessage());
     }

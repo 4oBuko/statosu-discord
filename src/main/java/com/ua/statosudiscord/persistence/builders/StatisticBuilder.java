@@ -41,7 +41,6 @@ public class StatisticBuilder {
     private LocalDateTime lastUpdated;
 
     private LocalDateTime nextUpdateTime;
-    private Integer updateHour;
 
     public StatisticBuilder setId(Long id) {
         this.id = id;
@@ -118,11 +117,6 @@ public class StatisticBuilder {
         return this;
     }
 
-    public StatisticBuilder setUpdateHour(Integer updateHour) {
-        this.updateHour = updateHour;
-        return this;
-    }
-
     public StatisticBuilder setOsuId(Long osuId) {
         this.osuId = osuId;
         return this;
@@ -134,6 +128,6 @@ public class StatisticBuilder {
     }
 
     public Statistic build() {
-        return new Statistic(id, user, osuId, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, lastUpdated, nextUpdateTime, updateHour);
+        return new Statistic(id, user, osuId, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, lastUpdated, nextUpdateTime);
     }
 }
