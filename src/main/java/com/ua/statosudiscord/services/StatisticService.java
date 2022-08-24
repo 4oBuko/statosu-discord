@@ -3,7 +3,6 @@ package com.ua.statosudiscord.services;
 import com.ua.statosudiscord.apirequests.requests.OsuAPI;
 import com.ua.statosudiscord.persistence.SequenceGeneratorService;
 import com.ua.statosudiscord.persistence.entities.Statistic;
-import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
@@ -11,7 +10,6 @@ import com.ua.statosudiscord.utils.TimeUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,23 +46,6 @@ public class StatisticService {
         statisticRepository.saveAll(updatedStatistic);
 
         return updatedStatistic;
-    }
-
-
-    public Statistic addNewStatistic(User user, int updateHour, UpdatePeriod updatePeriod, DayOfWeek dayOfWeek, Integer dayOfMonth) {
-        Statistic oldStatistic = statisticRepository.getStatisticByUser(user);
-        Statistic statistic = osuAPI.getUserByUsername(user.getOsuUsername());
-        if (oldStatistic == null) {
-            statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
-            statistic.setUser(user);
-        } else {
-            statistic.setId(oldStatistic.getId());
-            statistic.setUser(oldStatistic.getUser());
-        }
-//        todo: insert update time in user
-        statistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(statistic));
-        statisticRepository.save(statistic);
-        return statistic;
     }
 
     public Statistic getNewestStatistic(User user) {
