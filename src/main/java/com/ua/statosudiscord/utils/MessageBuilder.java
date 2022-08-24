@@ -42,10 +42,8 @@ public class MessageBuilder {
                 .setSs(updated.getSs() - old.getSs())
                 .setSh(updated.getSh() - old.getSh())
                 .setSsh(updated.getSsh() - old.getSsh())
-                .setPeriod(updated.getPeriod())
                 .setLastUpdated(old.getLastUpdated())
-                .setNextUpdateTime(updated.getNextUpdateTime())
-                .setUpdateHour(updated.getUpdateHour());
+                .setNextUpdateTime(updated.getNextUpdateTime());
         Statistic difference = statisticBuilder.build();
         StringBuilder message = new StringBuilder();
         message.append(previousUpdate)

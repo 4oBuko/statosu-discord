@@ -3,7 +3,6 @@ package com.ua.statosudiscord.services;
 import com.ua.statosudiscord.apirequests.requests.OsuAPI;
 import com.ua.statosudiscord.persistence.SequenceGeneratorService;
 import com.ua.statosudiscord.persistence.entities.Statistic;
-import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
@@ -41,8 +40,6 @@ public class StatisticService {
             );
             updated.setId(statistic.getId());
             updated.setUser(statistic.getUser());
-            updated.setUpdateHour(statistic.getUpdateHour());
-            updated.setPeriod(statistic.getPeriod());
             updated.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updated));
             updatedStatistic.add(updated);
         }
@@ -51,31 +48,11 @@ public class StatisticService {
         return updatedStatistic;
     }
 
-
-    public Statistic addNewStatistic(User user, int updateHour, UpdatePeriod updatePeriod) {
-        Statistic oldStatistic = statisticRepository.getStatisticByUser(user);
-        Statistic statistic = osuAPI.getUserByUsername(user.getOsuUsername());
-        if (oldStatistic == null) {
-            statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
-            statistic.setUser(user);
-        } else {
-            statistic.setId(oldStatistic.getId());
-            statistic.setUser(oldStatistic.getUser());
-        }
-        statistic.setPeriod(updatePeriod);
-        statistic.setUpdateHour(updateHour);
-        statistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(statistic));
-        statisticRepository.save(statistic);
-        return statistic;
-    }
-
     public Statistic getNewestStatistic(User user) {
         Statistic statistic = statisticRepository.getStatisticByUser(user);
         Statistic updatedStatistic = osuAPI.getUserByUsername(user.getOsuUsername());
         updatedStatistic.setId(statistic.getId());
         updatedStatistic.setUser(statistic.getUser());
-        updatedStatistic.setPeriod(statistic.getPeriod());
-        updatedStatistic.setUpdateHour(statistic.getUpdateHour());
         updatedStatistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updatedStatistic));
         statisticRepository.save(updatedStatistic);
         return updatedStatistic;

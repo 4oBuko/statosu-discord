@@ -38,12 +38,9 @@ public class StatisticBuilder {
 
     private Integer ssh;
 
-    private UpdatePeriod period;
-
     private LocalDateTime lastUpdated;
 
     private LocalDateTime nextUpdateTime;
-    private Integer updateHour;
 
     public StatisticBuilder setId(Long id) {
         this.id = id;
@@ -110,11 +107,6 @@ public class StatisticBuilder {
         return this;
     }
 
-    public StatisticBuilder setPeriod(UpdatePeriod period) {
-        this.period = period;
-        return this;
-    }
-
     public StatisticBuilder setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
         return this;
@@ -122,11 +114,6 @@ public class StatisticBuilder {
 
     public StatisticBuilder setNextUpdateTime(LocalDateTime nextUpdateTime) {
         this.nextUpdateTime = nextUpdateTime;
-        return this;
-    }
-
-    public StatisticBuilder setUpdateHour(Integer updateHour) {
-        this.updateHour = updateHour;
         return this;
     }
 
@@ -141,6 +128,6 @@ public class StatisticBuilder {
     }
 
     public Statistic build() {
-        return new Statistic(id, user, osuId, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, period, lastUpdated, nextUpdateTime, updateHour);
+        return new Statistic(id, user, osuId, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, lastUpdated, nextUpdateTime);
     }
 }
