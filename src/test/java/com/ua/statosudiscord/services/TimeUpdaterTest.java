@@ -1,7 +1,6 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.persistence.builders.StatisticBuilder;
-import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.utils.TimeUpdater;
@@ -32,12 +31,6 @@ class TimeUpdaterTest {
     public void dailyUpdate() {
         dailyUpdatedStatisticBuilder.setLastUpdated(LocalDateTime.of(LocalDate.now().getYear(), 11, 14, 23, 30));
         assertEquals(LocalDateTime.of(LocalDate.now().getYear(), 11, 15, dailyUpdateUser.getUpdateTime(), 0), TimeUpdater.getNextUpdateTime(dailyUpdatedStatisticBuilder.build()));
-    }
-
-    @Test
-    public void sameDayUpdate() {
-        dailyUpdatedStatisticBuilder.setLastUpdated(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT.plusHours(dailyUpdateUser.getUpdateTime() - 2)));
-        assertEquals(LocalDateTime.of(LocalDate.now(), LocalTime.of(dailyUpdateUser.getUpdateTime(), 0)), TimeUpdater.getNextUpdateTime(dailyUpdatedStatisticBuilder.build()));
     }
 
     @Test

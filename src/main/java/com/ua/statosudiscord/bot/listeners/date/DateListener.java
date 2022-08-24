@@ -98,6 +98,12 @@ public abstract class DateListener implements ProcessCommand {
                 } else {
                     try {
                         numberOfMonth = Integer.parseInt(arguments[2]);
+                        if(numberOfMonth < 1 || numberOfMonth > 28) {
+                            return Mono.just(eventMessage)
+                                    .flatMap(Message::getChannel)
+                                    .flatMap(channel -> channel.createMessage(wrongNumberOfMonth))
+                                    .then();
+                        }
                     } catch (NumberFormatException e) {
                         return Mono.just(eventMessage)
                                 .flatMap(Message::getChannel)
@@ -106,11 +112,11 @@ public abstract class DateListener implements ProcessCommand {
                     }
                 }
             }
+            existedUser.setUpdatePeriod(updatePeriod);
+            existedUser.setUpdateTime(updateTime);
+            existedUser.setDayOfMonth(numberOfMonth);
+            existedUser.setDayOfWeek(dayOfWeek);
             User updatedUser = userService.changeUpdateInto(existedUser);
-            updatedUser.setUpdatePeriod(updatePeriod);
-            updatedUser.setUpdateTime(updateTime);
-            updatedUser.setDayOfMonth(numberOfMonth);
-            updatedUser.setDayOfWeek(dayOfWeek);
             Statistic statistic = statisticService.getNewestStatistic(updatedUser);
             return Mono.just(eventMessage)
                     .flatMap(Message::getChannel)

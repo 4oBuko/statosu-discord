@@ -13,10 +13,6 @@ public class TimeUpdater {
         LocalDate lastUpdated = statistic.getLastUpdated().toLocalDate();
         LocalTime time = LocalTime.MIDNIGHT;
         time = time.plusHours(statistic.getUser().getUpdateTime());
-        if (statistic.getLastUpdated().toLocalDate().equals(LocalDate.now()) &&
-                statistic.getUser().getUpdateTime() - statistic.getLastUpdated().getHour() >= 2) {
-            return LocalDateTime.of(LocalDate.now(), time);
-        }
         if (statistic.getUser().getUpdatePeriod().equals(UpdatePeriod.daily)) {
             lastUpdated = lastUpdated.plusDays(1);
         } else if (statistic.getUser().getUpdatePeriod().equals(UpdatePeriod.weekly)) {
