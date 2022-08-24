@@ -15,9 +15,9 @@ import reactor.core.publisher.Mono;
 
 import java.time.DayOfWeek;
 
-public abstract class DateListener implements ProcessCommand {
+public abstract class UpdateListener implements ProcessCommand {
 
-    Logger logger = LoggerFactory.getLogger(DateListener.class);
+    Logger logger = LoggerFactory.getLogger(UpdateListener.class);
     @Autowired
     UserService userService;
 
@@ -33,7 +33,6 @@ public abstract class DateListener implements ProcessCommand {
         String wrongNumberOfMonth = "Wrong number of the month. Enter value in range 1-28";
         String periodError = "Wrong period. Period could be daily, weekly or monthly";
         String[] arguments = eventMessage.getContent().split(" ");
-        arguments[1] = arguments[1].toLowerCase();
         String response;
         if (arguments[0].equals("!update") && (arguments.length > 4 || arguments.length < 3)) {
             return Mono.just(eventMessage)
@@ -41,6 +40,7 @@ public abstract class DateListener implements ProcessCommand {
                     .flatMap(channel -> channel.createMessage(parametersError))
                     .then();
         } else if (arguments[0].equals("!update")) {
+            arguments[1] = arguments[1].toLowerCase();
             User existedUser = userService.getUser(eventMessage);
             int updateTime = 0;
             int numberOfMonth = 0;
