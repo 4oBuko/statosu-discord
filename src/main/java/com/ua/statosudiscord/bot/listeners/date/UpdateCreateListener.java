@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class DateCreateListener extends DateListener implements EventListener<MessageCreateEvent> {
+public class UpdateCreateListener extends UpdateListener implements EventListener<MessageCreateEvent> {
     @Override
     public Class<MessageCreateEvent> getEventType() {
         return MessageCreateEvent.class;
