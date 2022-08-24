@@ -22,16 +22,18 @@ public class UserService {
     @Autowired
     StatisticService statisticService;
 
-    public User addNewUser(Message message, String username, UpdatePeriod updatePeriod, DayOfWeek dayOfWeek, int dayOfMonth, int updateTime) {
+    //    I can add user only with necessary ids and username, all other information
+//    will be added by changeUpdateInfo
+    public User addNewUser(long channelId, long userId, String username) {
         User user = new User(
                 generatorService.generateSequence(User.SEQUENCE_NAME),
-                message.getChannelId().asLong(),
-                message.getUserData().id().asLong(),
+                channelId,
+                userId,
                 username,
-                updatePeriod,
-                dayOfWeek,
-                dayOfMonth,
-                updateTime
+                null,
+                null,
+                0,
+                -1
         );
         userRepository.save(user);
         return user;
@@ -50,5 +52,9 @@ public class UserService {
 
     public User getUser(Message message) {
         return userRepository.findUserByChannelIdAndUserId(message.getChannelId().asLong(), message.getUserData().id().asLong());
+    }
+
+    public User changeUpdateInto(User user) {
+        return userRepository.save(user);
     }
 }
