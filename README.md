@@ -14,7 +14,7 @@ statosu has three simple commands:
 ![](message_example.png)
 
 ## How to deploy
-If you want to deploy statosu you have to set keys in [application.properties](src/main/resources/application.properties) file:
+If you want to deploy statosu you have to run application with such properties: 
 - bot.token - token of your Discord bot
 - client.id - id of your osu! client
 - client.secret - osu! client's secret 
