@@ -46,6 +46,7 @@ public class BotConfiguration {
                     .onErrorResume(listener::handleError)
                     .subscribe();
         }
+//        todo: what is that?
         User user = new User(1L,1L,"test");
         user.setId(generatorService.generateSequence(User.SEQUENCE_NAME));
         userRepository.save(user);
