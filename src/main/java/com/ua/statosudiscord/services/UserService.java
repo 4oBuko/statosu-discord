@@ -40,8 +40,8 @@ public class UserService {
     }
 
     //    todo: change message to user id and user id
-    public User updateUsername(Message message, String newUsername) {
-        User user = userRepository.findUserByChannelIdAndUserId(message.getChannelId().asLong(), message.getUserData().id().asLong());
+    public User updateUsername(Long channelId, Long userId, String newUsername) {
+        User user = userRepository.findUserByChannelIdAndUserId(channelId, userId);
         if (user != null) {
             user.setOsuUsername(newUsername);
             userRepository.save(user);
@@ -50,8 +50,9 @@ public class UserService {
         return user;
     }
 
-    public User getUser(Message message) {
-        return userRepository.findUserByChannelIdAndUserId(message.getChannelId().asLong(), message.getUserData().id().asLong());
+
+    public User getUser(Long channelId, Long userId) {
+        return userRepository.findUserByChannelIdAndUserId(channelId, userId);
     }
 
     public User changeUpdateInto(User user) {
