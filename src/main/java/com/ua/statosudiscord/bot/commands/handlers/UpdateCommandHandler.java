@@ -1,5 +1,6 @@
 package com.ua.statosudiscord.bot.commands.handlers;
 
+import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandOption;
 import discord4j.discordjson.json.ApplicationCommandOptionChoiceData;
 import discord4j.discordjson.json.ApplicationCommandOptionData;
@@ -114,7 +115,7 @@ public class UpdateCommandHandler extends CommandHandler {
     }
 
     @Override
-    public Mono<Void> handle() {
+    public Mono<Void> handle(ChatInputInteractionEvent event) {
         return null;
     }
 }
