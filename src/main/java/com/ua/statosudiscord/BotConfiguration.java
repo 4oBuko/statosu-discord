@@ -1,4 +1,4 @@
-package com.ua.statosudiscord.bot;
+package com.ua.statosudiscord;
 
 import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
 import com.ua.statosudiscord.bot.listeners.EventListener;
