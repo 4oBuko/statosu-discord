@@ -39,17 +39,17 @@ public class NicknameCommandHandler extends CommandHandler {
                 .map(ApplicationCommandInteractionOptionValue::asString)
                 .get();
         String response;
-        long guildId = event.getInteraction().getChannelId().asLong();
+        long channelId = event.getInteraction().getChannelId().asLong();
         long userId = event.getInteraction().getUser().getId().asLong();
-        User existedUser = userService.getUser(event.getInteraction().getGuildId().get().asLong(), event.getInteraction().getUser().getId().asLong());
+        User existedUser = userService.getUser(channelId, userId);
         if (existedUser != null && existedUser.getOsuUsername().equals(nickname)) {
             response = nickname + " is already your nickname";
         } else if (existedUser != null && !existedUser.getOsuUsername().equals(nickname)) {
             String oldNickname = existedUser.getOsuUsername();
-            existedUser = userService.updateUsername(guildId, userId, nickname);
+            existedUser = userService.updateUsername(channelId, userId, nickname);
             response = "Old username: " + oldNickname + "\n new username: " + existedUser.getOsuUsername();
         } else {
-            existedUser = userService.addNewUser(guildId, userId, nickname);
+            existedUser = userService.addNewUser(channelId, userId, nickname);
             response = "Welcome. Your osu username is " + existedUser.getOsuUsername();
         }
         return event.reply()
