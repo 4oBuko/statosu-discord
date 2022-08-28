@@ -33,12 +33,12 @@ public abstract class NicknameListener implements ProcessCommand {
                     .flatMap(channel -> channel.createMessage(wrongNickname))
                     .then();
         } else if (eventMessage.getContent().startsWith("!nickname")) {
-            User existedUser = userService.getUser(eventMessage);
+            User existedUser = userService.getUser(eventMessage.getChannelId().asLong(), eventMessage.getUserData().id().asLong());
             if (existedUser != null && existedUser.getOsuUsername().equals(commandWithParameters[1])) {
                 response = commandWithParameters[1] + " is already your nickname";
             } else if (existedUser != null && !existedUser.getOsuUsername().equals(commandWithParameters[1])) {
                 String oldNickname = existedUser.getOsuUsername();
-                existedUser = userService.updateUsername(eventMessage, commandWithParameters[1]);
+                existedUser = userService.updateUsername(eventMessage.getChannelId().asLong(), eventMessage.getUserData().id().asLong(), commandWithParameters[1]);
                 response = "Old username: " + oldNickname + "\n new username: " + existedUser.getOsuUsername();
             } else {
                 existedUser = userService.addNewUser(eventMessage.getChannelId().asLong(), eventMessage.getUserData().id().asLong(), commandWithParameters[1]);

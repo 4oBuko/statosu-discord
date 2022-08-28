@@ -41,7 +41,7 @@ public abstract class UpdateListener implements ProcessCommand {
                     .then();
         } else if (arguments[0].equals("!update")) {
             arguments[1] = arguments[1].toLowerCase();
-            User existedUser = userService.getUser(eventMessage);
+            User existedUser = userService.getUser(eventMessage.getChannelId().asLong(), eventMessage.getUserData().id().asLong());
             int updateTime = 0;
             int numberOfMonth = 0;
             DayOfWeek dayOfWeek = null;
@@ -98,7 +98,7 @@ public abstract class UpdateListener implements ProcessCommand {
                 } else {
                     try {
                         numberOfMonth = Integer.parseInt(arguments[2]);
-                        if(numberOfMonth < 1 || numberOfMonth > 28) {
+                        if (numberOfMonth < 1 || numberOfMonth > 28) {
                             return Mono.just(eventMessage)
                                     .flatMap(Message::getChannel)
                                     .flatMap(channel -> channel.createMessage(wrongNumberOfMonth))
