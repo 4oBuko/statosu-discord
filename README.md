@@ -4,7 +4,7 @@ statosu is a Discord bot that helps you to track your progress in osu!! classic 
 To track your statistic with statosu you have to do three simple steps:
 1. add bot to your Discord channel
 2. set your nickname in osu!
-3. set when you want to get statistic
+3. set when you want to get statistic updates
 ### How to do that?
 statosu has three simple commands:
 - !about - help
