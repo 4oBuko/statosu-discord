@@ -6,12 +6,16 @@ services:
     container_name: app
     depends_on:
       - osu-stats
+    env_file:
+      - .env
     environment:
-      - SPRING_DATA_MONGO_DB_DATABASE=osu-stats
+      - bot.token=${BOT_TOKEN}
+      - client.id=${CLIENT_ID}
+      - client.secret=${CLIENT_SECRET}
+      - spring.data.mongodb.host=osu-stats
+      - spring.data.mongodb.database=osu-stats
 
   osu-stats:
     image: mongo:latest
     restart: always
-    ports:
-      - 27017:27017
     container_name: osu-stats-db
