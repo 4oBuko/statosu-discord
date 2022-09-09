@@ -20,9 +20,6 @@ public class UserService {
     @Autowired
     private SequenceGeneratorService generatorService;
 
-    @Autowired
-    StatisticService statisticService;
-
     //    I can add user only with necessary ids and username, all other information
 //    will be added by changeUpdateInfo
     public User addNewUser(long channelId, long userId, String username) {

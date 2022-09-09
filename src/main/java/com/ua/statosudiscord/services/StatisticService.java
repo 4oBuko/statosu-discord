@@ -28,9 +28,6 @@ public class StatisticService {
     StatisticRepository statisticRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     SequenceGeneratorService generatorService;
 
     @Autowired
