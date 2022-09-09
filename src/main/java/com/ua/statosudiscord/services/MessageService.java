@@ -16,7 +16,7 @@ public class MessageService {
     UserService userService;
 
     public String getNewStatistic(User user) {
-        Statistic newestStatistic = statisticService.getNewestStatistic(user);
+        Statistic newestStatistic = statisticService.updateUserStatistic(user);
         if (newestStatistic == null) {
             return "Error.Something went wrong";
         } else {

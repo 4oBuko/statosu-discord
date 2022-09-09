@@ -34,10 +34,11 @@ public class ScheduledStatisticUpdatingService {
         List<Statistic> updatedStatistic = statisticService.updateStatistic(updateTime);
         logger.debug("Statistic was updated");
         for (int i = 0; i < updatedStatistic.size(); i++) {
-            if (oldStatistic.get(i).getId().equals(updatedStatistic.get(i).getId())) {
-                Message message = MessageBuilder.createMessage(oldStatistic.get(i), updatedStatistic.get(i));
-                messageSender.sendTestMessageInChannelWithUserMention(message);
+            Message message = MessageBuilder.createMessage(oldStatistic.get(i), updatedStatistic.get(i));
+            if (oldStatistic.get(i).equals(updatedStatistic.get(i))) {
+                message.setMessage("Failed to update statistic. Last updated statistic:" + message.getMessage());
             }
+            messageSender.sendMessageInChannelWithUserMention(message);
         }
         logger.debug("Message were sent");
     }

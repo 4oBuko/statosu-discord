@@ -45,7 +45,7 @@ public class UserService {
         if (user != null) {
             user.setOsuUsername(newUsername);
             userRepository.save(user);
-            statisticService.getNewestStatistic(user);
+//            statisticService.getNewestStatistic(user);
         }
         return user;
     }
