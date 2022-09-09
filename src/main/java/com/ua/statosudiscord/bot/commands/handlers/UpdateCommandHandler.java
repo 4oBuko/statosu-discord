@@ -174,7 +174,7 @@ public class UpdateCommandHandler extends CommandHandler {
                 .map(ApplicationCommandInteractionOptionValue::asLong)
                 .get().intValue();
         if (existedUser == null) {
-            response = "You cannot use this operation. Use !nickname command first";
+            response = "You cannot use this operation. Use !username command first";
         } else {
             existedUser.setUpdatePeriod(updatePeriod);
             existedUser.setUpdateTime(updateTime);

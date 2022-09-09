@@ -18,10 +18,10 @@ public class AboutCommandHandler extends CommandHandler {
     }
     private final static String aboutBot = "Hello, I'm Statosu. " +
             "I show your progress in osu! classic mode.\n" +
-            "You need to give me your osu! nickname and the update time.\n" +
+            "You need to give me your osu! username and the update time.\n" +
             "I support these commands:\n" +
             "- /about - about me\n" +
-            "- /nickname - set your osu! nickname\n" +
+            "- /username - set your osu! username\n" +
             "- /update - set time for statistic update\n";
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {

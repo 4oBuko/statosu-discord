@@ -26,8 +26,8 @@ public class MessageService {
 
     public String updateUsername(Long channelId, Long userId, String newUsername) {
         User userFromDB = userService.getUser(channelId, userId);
-        Statistic statisticForNewNickname = statisticService.getNewestStatistic(new User(channelId, userId, newUsername));
-        if (statisticForNewNickname == null) {
+        Statistic statisticForNewUsername = statisticService.getNewestStatistic(new User(channelId, userId, newUsername));
+        if (statisticForNewUsername == null) {
             return "Error. This username doesn't exist";
         }
         else if (userFromDB == null) {
