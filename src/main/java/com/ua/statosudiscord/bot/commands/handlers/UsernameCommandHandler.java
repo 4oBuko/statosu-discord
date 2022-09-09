@@ -12,17 +12,17 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class NicknameCommandHandler extends CommandHandler {
+public class UsernameCommandHandler extends CommandHandler {
     @Autowired
     MessageService messageService;
 
-    public NicknameCommandHandler() {
+    public UsernameCommandHandler() {
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()
-                .name("nickname")
-                .description("set your osu! nickname")
+                .name("username")
+                .description("set your osu! username")
                 .addOption(ApplicationCommandOptionData.builder()
-                        .name("nickname")
-                        .description("your osu! nickname")
+                        .name("username")
+                        .description("your osu! username")
                         .type(ApplicationCommandOption.Type.STRING.getValue())
                         .required(true)
                         .build()
@@ -33,7 +33,7 @@ public class NicknameCommandHandler extends CommandHandler {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        String username = event.getOption("nickname")
+        String username = event.getOption("username")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asString)
                 .get();
