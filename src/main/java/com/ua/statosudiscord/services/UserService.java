@@ -1,15 +1,10 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.persistence.SequenceGeneratorService;
-import com.ua.statosudiscord.persistence.entities.Statistic;
-import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
-import discord4j.core.object.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.DayOfWeek;
 
 @Service
 public class UserService {

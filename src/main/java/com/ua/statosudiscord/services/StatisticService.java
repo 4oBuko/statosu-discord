@@ -5,7 +5,6 @@ import com.ua.statosudiscord.persistence.SequenceGeneratorService;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
-import com.ua.statosudiscord.persistence.repositories.UserRepository;
 import com.ua.statosudiscord.utils.TimeUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
