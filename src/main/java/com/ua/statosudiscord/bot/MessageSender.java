@@ -3,7 +3,6 @@ package com.ua.statosudiscord.bot;
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.channel.MessageChannel;
-import io.netty.channel.ChannelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class MessageSender {
     @Autowired
     GatewayDiscordClient gatewayDiscordClient;
 
-    public void sendTestMessageInChannelWithUserMention(Message message) {
+    public void sendMessageInChannelWithUserMention(Message message) {
         gatewayDiscordClient.getChannelById(Snowflake.of(message.getDiscordChannelId()))
                 .ofType(MessageChannel.class)
                 .flatMap(channel -> channel.createMessage("<@" + message.getDiscordUserId() + ">\n" + message.getMessage()))

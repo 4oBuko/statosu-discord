@@ -1,6 +1,7 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.persistence.SequenceGeneratorService;
+import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
@@ -39,7 +40,6 @@ public class UserService {
         return user;
     }
 
-    //    todo: change message to user id and user id
     public User updateUsername(Long channelId, Long userId, String newUsername) {
         User user = userRepository.findUserByChannelIdAndUserId(channelId, userId);
         if (user != null) {
