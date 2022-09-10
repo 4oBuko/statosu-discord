@@ -1,14 +1,10 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.persistence.SequenceGeneratorService;
-import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
-import discord4j.core.object.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.DayOfWeek;
 
 @Service
 public class UserService {
@@ -18,9 +14,6 @@ public class UserService {
 
     @Autowired
     private SequenceGeneratorService generatorService;
-
-    @Autowired
-    StatisticService statisticService;
 
     //    I can add user only with necessary ids and username, all other information
 //    will be added by changeUpdateInfo
@@ -39,13 +32,12 @@ public class UserService {
         return user;
     }
 
-    //    todo: change message to user id and user id
     public User updateUsername(Long channelId, Long userId, String newUsername) {
         User user = userRepository.findUserByChannelIdAndUserId(channelId, userId);
         if (user != null) {
             user.setOsuUsername(newUsername);
             userRepository.save(user);
-            statisticService.getNewestStatistic(user);
+//            statisticService.getNewestStatistic(user);
         }
         return user;
     }

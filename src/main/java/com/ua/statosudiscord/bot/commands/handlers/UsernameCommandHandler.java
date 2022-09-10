@@ -1,7 +1,6 @@
 package com.ua.statosudiscord.bot.commands.handlers;
 
-import com.ua.statosudiscord.persistence.entities.User;
-import com.ua.statosudiscord.services.UserService;
+import com.ua.statosudiscord.services.MessageService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
@@ -13,17 +12,17 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class NicknameCommandHandler extends CommandHandler {
+public class UsernameCommandHandler extends CommandHandler {
     @Autowired
-    UserService userService;
+    MessageService messageService;
 
-    public NicknameCommandHandler() {
+    public UsernameCommandHandler() {
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()
-                .name("nickname")
-                .description("set your osu! nickname")
+                .name("username")
+                .description("set your osu! username")
                 .addOption(ApplicationCommandOptionData.builder()
-                        .name("nickname")
-                        .description("your osu! nickname")
+                        .name("username")
+                        .description("your osu! username")
                         .type(ApplicationCommandOption.Type.STRING.getValue())
                         .required(true)
                         .build()
@@ -34,24 +33,13 @@ public class NicknameCommandHandler extends CommandHandler {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        String nickname = event.getOption("nickname")
+        String username = event.getOption("username")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asString)
                 .get();
-        String response;
         long channelId = event.getInteraction().getChannelId().asLong();
         long userId = event.getInteraction().getUser().getId().asLong();
-        User existedUser = userService.getUser(channelId, userId);
-        if (existedUser != null && existedUser.getOsuUsername().equals(nickname)) {
-            response = nickname + " is already your nickname";
-        } else if (existedUser != null && !existedUser.getOsuUsername().equals(nickname)) {
-            String oldNickname = existedUser.getOsuUsername();
-            existedUser = userService.updateUsername(channelId, userId, nickname);
-            response = "Old username: " + oldNickname + "\n new username: " + existedUser.getOsuUsername();
-        } else {
-            existedUser = userService.addNewUser(channelId, userId, nickname);
-            response = "Welcome. Your osu username is " + existedUser.getOsuUsername();
-        }
+        String response = messageService.updateUsername(channelId, userId, username);
         return event.reply()
                 .withEphemeral(true)
                 .withContent(response);

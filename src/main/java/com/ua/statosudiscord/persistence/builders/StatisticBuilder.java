@@ -1,7 +1,5 @@
 package com.ua.statosudiscord.persistence.builders;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.User;
 

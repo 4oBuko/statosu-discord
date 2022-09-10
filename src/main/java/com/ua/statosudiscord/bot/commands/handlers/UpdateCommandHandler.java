@@ -1,11 +1,10 @@
 package com.ua.statosudiscord.bot.commands.handlers;
 
-import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
+import com.ua.statosudiscord.services.MessageService;
 import com.ua.statosudiscord.services.StatisticService;
 import com.ua.statosudiscord.services.UserService;
-import com.ua.statosudiscord.utils.MessageBuilder;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
@@ -27,6 +26,9 @@ public class UpdateCommandHandler extends CommandHandler {
 
     @Autowired
     StatisticService statisticService;
+
+    @Autowired
+    MessageService messageService;
 
     public UpdateCommandHandler() {
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()
@@ -137,7 +139,6 @@ public class UpdateCommandHandler extends CommandHandler {
         String response = "";
         long channelId = event.getInteraction().getChannelId().asLong();
         long userId = event.getInteraction().getUser().getId().asLong();
-//        arguments[1] = arguments[1].toLowerCase();
         User existedUser = userService.getUser(channelId, userId);
         int updateTime = 0;
         int numberOfMonth = 0;
@@ -173,15 +174,14 @@ public class UpdateCommandHandler extends CommandHandler {
                 .map(ApplicationCommandInteractionOptionValue::asLong)
                 .get().intValue();
         if (existedUser == null) {
-            response = "You cannot use this operation. Use !nickname command first";
+            response = "You cannot use this operation. Use !username command first";
         } else {
             existedUser.setUpdatePeriod(updatePeriod);
             existedUser.setUpdateTime(updateTime);
             existedUser.setDayOfMonth(numberOfMonth);
             existedUser.setDayOfWeek(dayOfWeek);
             User updatedUser = userService.changeUpdateInto(existedUser);
-            Statistic statistic = statisticService.getNewestStatistic(updatedUser);
-            response = MessageBuilder.createMessage(statistic).getMessage();
+            response = messageService.getNewStatistic(updatedUser);
         }
         return event.reply()
                 .withEphemeral(true)

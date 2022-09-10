@@ -17,5 +17,7 @@ services:
 
   osu-stats:
     image: mongo:latest
+    ports:
+      - 27017:27017
     restart: always
     container_name: osu-stats-db
