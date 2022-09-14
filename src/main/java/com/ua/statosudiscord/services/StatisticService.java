@@ -93,6 +93,6 @@ public class StatisticService {
         return statisticRepository.saveAll(statistics);
     }
 
-//    todo: add method for getting multiple users
+//    todo: add method for getting multiple users, get response as a string and parse statistics from it
 
 }

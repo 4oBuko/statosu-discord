@@ -64,6 +64,7 @@ public class Statistic implements Serializable {
     private LocalDateTime lastUpdated;
 
     private LocalDateTime nextUpdateTime;
+
     @JsonProperty("statistics")
     private void unpackStatistic(Map<String, Object> statistics) {
         globalRank = (Integer) statistics.get("global_rank");
