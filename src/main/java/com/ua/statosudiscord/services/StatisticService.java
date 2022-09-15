@@ -5,6 +5,7 @@ import com.ua.statosudiscord.persistence.SequenceGeneratorService;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
+import com.ua.statosudiscord.utils.StatisticJSONParser;
 import com.ua.statosudiscord.utils.TimeUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,6 +95,26 @@ public class StatisticService {
         return statisticRepository.saveAll(statistics);
     }
 
-//    todo: add method for getting multiple users, get response as a string and parse statistics from it
+    //    todo: add method for getting multiple users, get response as a string and parse statistics from it
+    public List<Statistic> updateStatisticByTime(LocalDateTime time) {
+        List<Statistic> statisticToUpdate = statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderById(time);
+        List<Statistic> updatedStatistic = new LinkedList<>();
+//        update max 50 elements per request and add them into updatedStatistic list
+        for (int i = 0; i < statisticToUpdate.size(); i += 50) {
+            ResponseEntity<String> response;
+            int maxIndex = (statisticToUpdate.size() - i >= 50) ? i + 50 : statisticToUpdate.size();
+            response = osuAPI.getMultipleUsers(statisticToUpdate.subList(i, maxIndex).stream().map(Statistic::getOsuId).toList());
+            if (response == null) {
+                List<Statistic> updatedPart = StatisticJSONParser.parseStatistic(response.getBody());
+                for (int j = i; j < maxIndex; j++) {
+                    updatedStatistic.add(statisticToUpdate.get(j));
+                }
+            } else {
+                for (int j = i; j < maxIndex; j++) {
 
+                }
+            }
+        }
+        return updatedStatistic;
+    }
 }
