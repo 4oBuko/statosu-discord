@@ -101,7 +101,6 @@ public class StatisticService {
     }
 
     public List<Statistic> updateStatisticByTime(LocalDateTime time) {
-//        todo: test method
         List<Statistic> statisticToUpdate = statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderById(time);
         List<Statistic> updatedStatistic = new LinkedList<>();
 //        update max 50 elements per request and add them into updatedStatistic list

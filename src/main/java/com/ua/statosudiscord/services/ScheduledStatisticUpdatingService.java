@@ -31,7 +31,7 @@ public class ScheduledStatisticUpdatingService {
         );
         logger.debug("Current time: " + updateTime);
         List<Statistic> oldStatistic = statisticService.getStatisticsByNextUpdateTime(updateTime);
-        List<Statistic> updatedStatistic = statisticService.updateStatistic(updateTime);
+        List<Statistic> updatedStatistic = statisticService.updateStatisticByTime(updateTime);
         logger.debug("Statistic was updated");
         for (int i = 0; i < updatedStatistic.size(); i++) {
             Message message = MessageBuilder.createMessage(oldStatistic.get(i), updatedStatistic.get(i));
