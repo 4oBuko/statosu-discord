@@ -72,6 +72,7 @@ public class StatisticService {
     public Statistic updateUserStatistic(User user) {
         Statistic statistic = statisticRepository.getStatisticByUser(user);
         Statistic updatedStatistic = getNewestStatistic(user);
+        updatedStatistic.setId(statistic.getId());
         updatedStatistic.setUser(user);
         updatedStatistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updatedStatistic));
         return saveStatistic(updatedStatistic);
@@ -82,14 +83,16 @@ public class StatisticService {
     }
 
     public Statistic saveStatistic(Statistic statistic) {
-        statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
+        if (statistic.getId() == null) {
+            statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
+        }
         return statisticRepository.save(statistic);
     }
 
     public List<Statistic> saveAllStatistic(List<Statistic> statistics) {
         statistics = statistics.stream()
                 .peek(statistic -> {
-                    if(statistic.getId() == null)
+                    if (statistic.getId() == null)
                         statistic.setId(generatorService.generateSequence(Statistic.SEQUENCE_NAME));
                 })
                 .collect(Collectors.toList());
