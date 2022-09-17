@@ -6,13 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.ua.statosudiscord.persistence.builders.StatisticBuilder;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StatisticJSONParser {
+    private static Logger logger = LoggerFactory.getLogger(StatisticJSONParser.class);
     public static List<Statistic> parseStatistic(String json) {
-//        todo: write unit tests
         List<Statistic> statisticList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -39,8 +41,7 @@ public class StatisticJSONParser {
                 statisticList.add(statisticBuilder.build());
             }
         } catch (JsonProcessingException e) {
-//            todo: log error
-            throw new RuntimeException(e);
+            logger.error(e.getMessage());
         }
         return statisticList;
     }
