@@ -65,6 +65,7 @@ public class StatisticService {
             Statistic statistic = responseEntity.getBody();
             HttpHeaders responseHeaders = responseEntity.getHeaders();
             statistic.setLastUpdated(LocalDateTime.ofEpochSecond(responseHeaders.getDate() / 1000, 0, ZoneOffset.UTC));
+            statistic.setUser(user);
             return statistic;
         }
     }
@@ -72,8 +73,9 @@ public class StatisticService {
     public Statistic updateUserStatistic(User user) {
         Statistic statistic = statisticRepository.getStatisticByUser(user);
         Statistic updatedStatistic = getNewestStatistic(user);
-        updatedStatistic.setId(statistic.getId());
-        updatedStatistic.setUser(user);
+        if(statistic != null) {
+            updatedStatistic.setId(statistic.getId());
+        }
         updatedStatistic.setNextUpdateTime(TimeUpdater.getNextUpdateTime(updatedStatistic));
         return saveStatistic(updatedStatistic);
     }
