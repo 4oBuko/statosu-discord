@@ -4,8 +4,6 @@ services:
     container_name: app
     depends_on:
       - osu-stats
-    env_file:
-      - .env
     environment:
       - spring.data.mongodb.host=osu-stats
       - spring.data.mongodb.database=osu-stats
