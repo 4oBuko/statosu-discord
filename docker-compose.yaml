@@ -1,17 +1,12 @@
 services:
   app:
-    image: 'osu_stats-bot:latest'
-    build:
-      context: .
+    build: .
     container_name: app
     depends_on:
       - osu-stats
     env_file:
       - .env
     environment:
-      - bot.token=${BOT_TOKEN}
-      - client.id=${CLIENT_ID}
-      - client.secret=${CLIENT_SECRET}
       - spring.data.mongodb.host=osu-stats
       - spring.data.mongodb.database=osu-stats
 
