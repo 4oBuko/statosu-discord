@@ -45,8 +45,7 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
+        if (!(o instanceof User user)) return false;
         return id.equals(user.id) && channelId.equals(user.channelId) && userId.equals(user.userId) && osuUsername.equals(user.osuUsername) && updatePeriod == user.updatePeriod && dayOfWeek == user.dayOfWeek && Objects.equals(dayOfMonth, user.dayOfMonth) && updateTime.equals(user.updateTime);
     }
 

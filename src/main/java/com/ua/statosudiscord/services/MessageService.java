@@ -3,16 +3,15 @@ package com.ua.statosudiscord.services;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.utils.MessageBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class MessageService {
 
-    @Autowired
     StatisticService statisticService;
 
-    @Autowired
     UserService userService;
 
     public String getNewStatistic(User user) {

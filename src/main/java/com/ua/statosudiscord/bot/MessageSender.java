@@ -3,17 +3,17 @@ package com.ua.statosudiscord.bot;
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.channel.MessageChannel;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class MessageSender {
 
-    Logger logger = LoggerFactory.getLogger(MessageSender.class);
-    @Autowired
-    GatewayDiscordClient gatewayDiscordClient;
+    private static final Logger logger = LoggerFactory.getLogger(MessageSender.class);
+    final GatewayDiscordClient gatewayDiscordClient;
 
     public void sendMessageInChannelWithUserMention(Message message) {
         gatewayDiscordClient.getChannelById(Snowflake.of(message.getDiscordChannelId()))

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-
+//todo: remove country rank
 @Document
 @Getter
 @Setter
@@ -86,8 +86,7 @@ public class Statistic implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Statistic)) return false;
-        Statistic statistic = (Statistic) o;
+        if (!(o instanceof Statistic statistic)) return false;
         return id.equals(statistic.id) && user.equals(statistic.user);
     }
 

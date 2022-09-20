@@ -4,9 +4,9 @@ import com.ua.statosudiscord.bot.Message;
 import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.bot.MessageSender;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +14,12 @@ import java.time.*;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ScheduledStatisticUpdatingService {
 
-    Logger logger = LoggerFactory.getLogger(ScheduledStatisticUpdatingService.class);
-    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(ScheduledStatisticUpdatingService.class);
     private StatisticService statisticService;
 
-    @Autowired
     MessageSender messageSender;
 
     @Scheduled(cron = "0 0 * * * *")//check for updates every hour

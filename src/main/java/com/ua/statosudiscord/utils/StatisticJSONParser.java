@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatisticJSONParser {
-    private static Logger logger = LoggerFactory.getLogger(StatisticJSONParser.class);
+    private static final Logger logger = LoggerFactory.getLogger(StatisticJSONParser.class);
     public static List<Statistic> parseStatistic(String json) {
         List<Statistic> statisticList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();

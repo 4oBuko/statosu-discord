@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 public class SlashCommandListener {
-    private List<CommandHandler> commandHandlers;
+    private final List<CommandHandler> commandHandlers;
 
     public SlashCommandListener(List<CommandHandler> commandHandlers, GatewayDiscordClient discordClient) {
         this.commandHandlers = commandHandlers;

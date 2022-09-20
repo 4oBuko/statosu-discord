@@ -8,9 +8,9 @@ import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import discord4j.discordjson.json.ApplicationCommandRequest;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,18 +19,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Configuration
+@AllArgsConstructor
 public class BotConfiguration {
-    Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
+    private static final Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
     @Value("${bot.token}")
     private String token;
 
-    @Autowired
     UserRepository userRepository;
 
-    @Autowired
     StatisticRepository statisticRepository;
 
-    @Autowired
     SequenceGeneratorService generatorService;
 
     @Bean
