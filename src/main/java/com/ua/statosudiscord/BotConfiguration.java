@@ -19,10 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Configuration
-@AllArgsConstructor
 public class BotConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
-    @Value("${bot.token}")
     private String token;
 
     UserRepository userRepository;
@@ -30,6 +28,13 @@ public class BotConfiguration {
     StatisticRepository statisticRepository;
 
     SequenceGeneratorService generatorService;
+
+    public BotConfiguration(@Value("${bot.token}") String token, UserRepository userRepository, StatisticRepository statisticRepository, SequenceGeneratorService generatorService) {
+        this.token = token;
+        this.userRepository = userRepository;
+        this.statisticRepository = statisticRepository;
+        this.generatorService = generatorService;
+    }
 
     @Bean
     public <T extends Event> GatewayDiscordClient gatewayDiscordClient(List<CommandHandler> commandHandlers) {
