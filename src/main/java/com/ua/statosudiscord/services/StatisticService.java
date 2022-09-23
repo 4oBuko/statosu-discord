@@ -34,7 +34,7 @@ public class StatisticService {
 
 
     public List<Statistic> updateStatistic(LocalDateTime time) {
-        List<Statistic> statisticList = statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderById(time);
+        List<Statistic> statisticList = statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderByOsuId(time);
         List<Statistic> updatedStatistic = new ArrayList<>();
 //      todo:rewrite using getUsers method from osuApi
         for (Statistic statistic : statisticList) {
@@ -78,7 +78,7 @@ public class StatisticService {
     }
 
     public List<Statistic> getStatisticsByNextUpdateTime(LocalDateTime time) {
-        return statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderById(time);
+        return statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderByOsuId(time);
     }
 
     public Statistic saveStatistic(Statistic statistic) {
@@ -100,7 +100,7 @@ public class StatisticService {
     }
 
     public List<Statistic> updateStatisticByTime(LocalDateTime time) {
-        List<Statistic> statisticToUpdate = statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderById(time);
+        List<Statistic> statisticToUpdate = statisticRepository.findAllByNextUpdateTimeIsLessThanEqualOrderByOsuId(time);
         List<Statistic> updatedStatistic = new LinkedList<>();
 //        update max 50 elements per request and add them into updatedStatistic list
         for (int i = 0; i < statisticToUpdate.size(); i += 50) {
