@@ -9,23 +9,22 @@ import org.junit.jupiter.api.Test;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TimeUpdaterTest {
 
-    User monthlyUpdateUser = new User(null, null, null, null, UpdatePeriod.monthly, null, 15, 20);
+    final User monthlyUpdateUser = new User(null, null, null, null, UpdatePeriod.monthly, null, 15, 20);
 
-    User weeklyUpdateUser = new User(null, null, null, null, UpdatePeriod.weekly, DayOfWeek.MONDAY, 0, 18);
+    final User weeklyUpdateUser = new User(null, null, null, null, UpdatePeriod.weekly, DayOfWeek.MONDAY, 0, 18);
 
-    User dailyUpdateUser = new User(null, null, null, null, UpdatePeriod.daily, null, 0, 22);
+    final User dailyUpdateUser = new User(null, null, null, null, UpdatePeriod.daily, null, 0, 22);
 
-    StatisticBuilder dailyUpdatedStatisticBuilder = new StatisticBuilder().setUser(dailyUpdateUser);
+    final StatisticBuilder dailyUpdatedStatisticBuilder = new StatisticBuilder().setUser(dailyUpdateUser);
 
-    StatisticBuilder weeklyUpdatedStatisticBuilder = new StatisticBuilder().setUser(weeklyUpdateUser);
+    final StatisticBuilder weeklyUpdatedStatisticBuilder = new StatisticBuilder().setUser(weeklyUpdateUser);
 
-    StatisticBuilder monthlyUpdatedStatisticBuilder = new StatisticBuilder().setUser(monthlyUpdateUser);
+    final StatisticBuilder monthlyUpdatedStatisticBuilder = new StatisticBuilder().setUser(monthlyUpdateUser);
 
     @Test
     public void dailyUpdate() {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class MessageSender {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageSender.class);
-    final GatewayDiscordClient gatewayDiscordClient;
+    private final GatewayDiscordClient gatewayDiscordClient;
 
     public void sendMessageInChannelWithUserMention(Message message) {
         gatewayDiscordClient.getChannelById(Snowflake.of(message.getDiscordChannelId()))

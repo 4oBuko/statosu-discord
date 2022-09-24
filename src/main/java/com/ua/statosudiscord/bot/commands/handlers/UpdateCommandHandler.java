@@ -12,22 +12,20 @@ import discord4j.core.object.command.ApplicationCommandOption;
 import discord4j.discordjson.json.ApplicationCommandOptionChoiceData;
 import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import java.time.DayOfWeek;
 
 @Component
+@AllArgsConstructor
 public class UpdateCommandHandler extends CommandHandler {
 
-    @Autowired
     UserService userService;
 
-    @Autowired
     StatisticService statisticService;
 
-    @Autowired
     MessageService messageService;
 
     public UpdateCommandHandler() {
@@ -136,11 +134,11 @@ public class UpdateCommandHandler extends CommandHandler {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        String response = "";
+        String response;
         long channelId = event.getInteraction().getChannelId().asLong();
         long userId = event.getInteraction().getUser().getId().asLong();
         User existedUser = userService.getUser(channelId, userId);
-        int updateTime = 0;
+        int updateTime;
         int numberOfMonth = 0;
         DayOfWeek dayOfWeek = null;
         UpdatePeriod updatePeriod;

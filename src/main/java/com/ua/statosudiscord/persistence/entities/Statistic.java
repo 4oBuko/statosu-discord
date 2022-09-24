@@ -39,8 +39,6 @@ public class Statistic implements Serializable {
 
     private Integer globalRank;
 
-    private Integer countryRank;
-
     private Double pp;
 
     private Double level;
@@ -68,7 +66,6 @@ public class Statistic implements Serializable {
     @JsonProperty("statistics")
     private void unpackStatistic(Map<String, Object> statistics) {
         globalRank = (Integer) statistics.get("global_rank");
-        countryRank = (Integer) statistics.get("country_rank");
         pp = (Double) statistics.get("pp");
         Map<String, Object> level = (Map<String, Object>) statistics.get("level");
         this.level = (Integer) level.get("current") + ((Integer) level.get("progress") / 100.0);
@@ -104,7 +101,6 @@ public class Statistic implements Serializable {
                 ", osuId=" + osuId +
                 ", username='" + user.getOsuUsername() + '\'' +
                 ", globalRank=" + globalRank +
-                ", countryRank=" + countryRank +
                 ", pp=" + pp +
                 ", level=" + level +
                 ", hitAccuracy=" + hitAccuracy +

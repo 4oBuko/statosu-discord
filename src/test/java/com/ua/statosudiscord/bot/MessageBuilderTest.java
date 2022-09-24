@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MessageBuilderTest {
 
-    StatisticBuilder oldStatisticBuilder = new StatisticBuilder()
+    final StatisticBuilder oldStatisticBuilder = new StatisticBuilder()
             .setUser(new User(1L, 1L, 1L, "testname", UpdatePeriod.daily, DayOfWeek.MONDAY, 0, 1))
             .setGlobalRank(629286)
             .setPp(1039.18)
@@ -29,7 +29,7 @@ class MessageBuilderTest {
             .setSsh(0)
             .setLastUpdated(LocalDateTime.of(2022, 7, 11, 12, 12))
             .setNextUpdateTime(LocalDateTime.of(2022, 7, 18, 12, 0));
-    StatisticBuilder newStatisticBuilder = new StatisticBuilder()
+    final StatisticBuilder newStatisticBuilder = new StatisticBuilder()
             .setUser(new User(1L, 1L, 1L, "testname", UpdatePeriod.daily, DayOfWeek.MONDAY, 0, 1))
             .setGlobalRank(600000)
             .setPp(1100.05)
@@ -45,85 +45,89 @@ class MessageBuilderTest {
             .setLastUpdated(LocalDateTime.of(2022, 7, 30, 12, 12))
             .setNextUpdateTime(LocalDateTime.of(2022, 8, 6, 12, 0));
 
-    Statistic oldStatistic = oldStatisticBuilder.build();
-    Statistic newStatistic = newStatisticBuilder.build();
+    final Statistic oldStatistic = oldStatisticBuilder.build();
+    final Statistic newStatistic = newStatisticBuilder.build();
 
     @Test
     public void createMessageWithOneParameter() {
-        String message = "Username: testname\n" +
-                "Global rank: 629286\n" +
-                "pp: 1039.18\n" +
-                "Level: 93.58\n" +
-                "Accuracy: 89.8627\n" +
-                "Play count: 17000\n" +
-                "Playtime: 200 hr 22 min\n" +
-                "A: 142\n" +
-                "S: 33\n" +
-                "SS: 4\n" +
-                "S+: 1\n" +
-                "SS+: 0\n" +
-                "Updated on: 12:12 Jul 11,2022\n" +
-                "Next update: 12:00 Jul 18,2022";
+        String message = """
+                Username: testname
+                Global rank: 629286
+                pp: 1039.18
+                Level: 93.58
+                Accuracy: 89.8627
+                Play count: 17000
+                Playtime: 200 hr 22 min
+                A: 142
+                S: 33
+                SS: 4
+                S+: 1
+                SS+: 0
+                Updated on: 12:12 Jul 11,2022
+                Next update: 12:00 Jul 18,2022""";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic).getMessage());
     }
 
     @Test
     public void createMessageWithTwoParametersProgressInAllFields() {
-        String message = "Previous update: 12:12 Jul 11,2022\n" +
-                "Username: testname\n" +
-                "Global rank: 600000(+29286)\n" +
-                "pp: 1100.05(+60.87)\n" +
-                "Level: 95.3(+1.72)\n" +
-                "Accuracy: 92.45(+2.59)\n" +
-                "Play count: 17000(+0)\n" +
-                "Playtime: 200 hr 22 min(+0 min)\n" +
-                "A: 150(+8)\n" +
-                "S: 36(+3)\n" +
-                "SS: 6(+2)\n" +
-                "S+: 2(+1)\n" +
-                "SS+: 1(+1)\n" +
-                "Updated on: 12:12 Jul 30,2022\n" +
-                "Next update: 12:00 Aug 06,2022";
+        String message = """
+                Previous update: 12:12 Jul 11,2022
+                Username: testname
+                Global rank: 600000(+29286)
+                pp: 1100.05(+60.87)
+                Level: 95.3(+1.72)
+                Accuracy: 92.45(+2.59)
+                Play count: 17000(+0)
+                Playtime: 200 hr 22 min(+0 min)
+                A: 150(+8)
+                S: 36(+3)
+                SS: 6(+2)
+                S+: 2(+1)
+                SS+: 1(+1)
+                Updated on: 12:12 Jul 30,2022
+                Next update: 12:00 Aug 06,2022""";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, newStatistic).getMessage());
     }
 
     @Test
     public void createMessageWithTwoParametersRegressInAllFields() {
-        String message = "Previous update: 12:12 Jul 30,2022\n" +
-                "Username: testname\n" +
-                "Global rank: 629286(-29286)\n" +
-                "pp: 1039.18(-60.87)\n" +
-                "Level: 93.58(-1.72)\n" +
-                "Accuracy: 89.8627(-2.59)\n" +
-                "Play count: 17000(+0)\n" +
-                "Playtime: 200 hr 22 min(+0 min)\n" +
-                "A: 142(-8)\n" +
-                "S: 33(-3)\n" +
-                "SS: 4(-2)\n" +
-                "S+: 1(-1)\n" +
-                "SS+: 0(-1)\n" +
-                "Updated on: 12:12 Jul 11,2022\n" +
-                "Next update: 12:00 Jul 18,2022";
+        String message = """
+                Previous update: 12:12 Jul 30,2022
+                Username: testname
+                Global rank: 629286(-29286)
+                pp: 1039.18(-60.87)
+                Level: 93.58(-1.72)
+                Accuracy: 89.8627(-2.59)
+                Play count: 17000(+0)
+                Playtime: 200 hr 22 min(+0 min)
+                A: 142(-8)
+                S: 33(-3)
+                SS: 4(-2)
+                S+: 1(-1)
+                SS+: 0(-1)
+                Updated on: 12:12 Jul 11,2022
+                Next update: 12:00 Jul 18,2022""";
         assertEquals(message, MessageBuilder.createMessage(newStatistic, oldStatistic).getMessage());
     }
 
     @Test
     public void createMessageWithTwoParametersNoProgress() {
-        String message = "Previous update: 12:12 Jul 11,2022\n" +
-                "Username: testname\n" +
-                "Global rank: 629286(+0)\n" +
-                "pp: 1039.18(+0.00)\n" +
-                "Level: 93.58(+0.00)\n" +
-                "Accuracy: 89.8627(+0.00)\n" +
-                "Play count: 17000(+0)\n" +
-                "Playtime: 200 hr 22 min(+0 min)\n" +
-                "A: 142(+0)\n" +
-                "S: 33(+0)\n" +
-                "SS: 4(+0)\n" +
-                "S+: 1(+0)\n" +
-                "SS+: 0(+0)\n" +
-                "Updated on: 12:12 Jul 11,2022\n" +
-                "Next update: 12:00 Jul 18,2022";
+        String message = """
+                Previous update: 12:12 Jul 11,2022
+                Username: testname
+                Global rank: 629286(+0)
+                pp: 1039.18(+0.00)
+                Level: 93.58(+0.00)
+                Accuracy: 89.8627(+0.00)
+                Play count: 17000(+0)
+                Playtime: 200 hr 22 min(+0 min)
+                A: 142(+0)
+                S: 33(+0)
+                SS: 4(+0)
+                S+: 1(+0)
+                SS+: 0(+0)
+                Updated on: 12:12 Jul 11,2022
+                Next update: 12:00 Jul 18,2022""";
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, oldStatistic).getMessage());
     }
 }

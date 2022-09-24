@@ -14,8 +14,6 @@ public class StatisticBuilder {
 
     private Integer globalRank;
 
-    private Integer countryRank;
-
     private Double pp;
 
     private Double level;
@@ -47,11 +45,6 @@ public class StatisticBuilder {
 
     public StatisticBuilder setGlobalRank(Integer globalRank) {
         this.globalRank = globalRank;
-        return this;
-    }
-
-    public StatisticBuilder setCountryRank(Integer countryRank) {
-        this.countryRank = countryRank;
         return this;
     }
 
@@ -126,6 +119,6 @@ public class StatisticBuilder {
     }
 
     public Statistic build() {
-        return new Statistic(id, user, osuId, globalRank, countryRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, lastUpdated, nextUpdateTime);
+        return new Statistic(id, user, osuId, globalRank, pp, level, hitAccuracy, playTime, playCount, a, s, ss, sh, ssh, lastUpdated, nextUpdateTime);
     }
 }

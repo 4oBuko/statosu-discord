@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Service
 public class TokenManager {
-    Logger logger = LoggerFactory.getLogger(TokenManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(TokenManager.class);
     private static final String CACHE_PATH = ".cache/token.json";
     private final TokenObjectSerializer tokenObjectSerializer = new TokenObjectSerializer();
     private static String clientSecret;

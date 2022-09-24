@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Configuration
 public class BotConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
-    private String token;
+    private final String token;
 
     UserRepository userRepository;
 

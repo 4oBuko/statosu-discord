@@ -7,14 +7,14 @@ import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import discord4j.core.object.command.ApplicationCommandOption;
 import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
+@AllArgsConstructor
 public class UsernameCommandHandler extends CommandHandler {
-    @Autowired
-    MessageService messageService;
+    private MessageService messageService;
 
     public UsernameCommandHandler() {
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()

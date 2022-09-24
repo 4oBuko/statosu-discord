@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class TokenObjectSerializer implements ObjectSerializer<AccessToken> {
-    Logger logger = LoggerFactory.getLogger(TokenObjectSerializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(TokenObjectSerializer.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
     {
         objectMapper.findAndRegisterModules();

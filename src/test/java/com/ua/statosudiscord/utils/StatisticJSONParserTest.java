@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StatisticJSONParserTest {
 
-    StatisticBuilder user1Builder = new StatisticBuilder()
+    final StatisticBuilder user1Builder = new StatisticBuilder()
             .setUser(new User())
             .setId(1L)
             .setOsuId(1L)
@@ -28,9 +28,9 @@ class StatisticJSONParserTest {
             .setSs(3)
             .setSh(0)
             .setSsh(2);
-    Statistic user1 = user1Builder.build();
+    final Statistic user1 = user1Builder.build();
 
-    StatisticBuilder user2Builder = new StatisticBuilder()
+    final StatisticBuilder user2Builder = new StatisticBuilder()
             .setUser(new User())
             .setId(2L)
             .setOsuId(2L)
@@ -45,9 +45,9 @@ class StatisticJSONParserTest {
             .setSs(20)
             .setSh(21)
             .setSsh(0);
-    Statistic user2 = user1Builder.build();
+    final Statistic user2 = user2Builder.build();
 
-    List<Statistic> testUsers = new LinkedList<>(Arrays.stream(new Statistic[] {user1,user2}).toList());
+    final List<Statistic> testUsers = new LinkedList<>(Arrays.stream(new Statistic[] {user1,user2}).toList());
 
 
     @Test
@@ -59,34 +59,35 @@ class StatisticJSONParserTest {
 
     @Test
     public void oneUserResponse() {
-        String json = "{\n" +
-                "    \"users\": [\n" +
-                "        {\n" +
-                "            \"id\": 1,\n" +
-                "            \"username\": \"test\",\n" +
-                "            \"statistics_rulesets\": {\n" +
-                "                \"osu\": {\n" +
-                "                    \"level\": {\n" +
-                "                        \"current\": 93,\n" +
-                "                        \"progress\": 20\n" +
-                "                    },\n" +
-                "                    \"global_rank\": 11,\n" +
-                "                    \"pp\": 5000.2,\n" +
-                "                    \"hit_accuracy\": 93.2,\n" +
-                "                    \"play_count\": 10000,\n" +
-                "                    \"play_time\": 123321,\n" +
-                "                    \"grade_counts\": {\n" +
-                "                        \"ss\": 3,\n" +
-                "                        \"ssh\": 2,\n" +
-                "                        \"s\": 2,\n" +
-                "                        \"sh\": 0,\n" +
-                "                        \"a\": 1\n" +
-                "                    }\n" +
-                "            }\n" +
-                "        }\n" +
-                "    }\n" +
-                "    ]\n" +
-                "}";
+        String json = """
+                {
+                    "users": [
+                        {
+                            "id": 1,
+                            "username": "test",
+                            "statistics_rulesets": {
+                                "osu": {
+                                    "level": {
+                                        "current": 93,
+                                        "progress": 20
+                                    },
+                                    "global_rank": 11,
+                                    "pp": 5000.2,
+                                    "hit_accuracy": 93.2,
+                                    "play_count": 10000,
+                                    "play_time": 123321,
+                                    "grade_counts": {
+                                        "ss": 3,
+                                        "ssh": 2,
+                                        "s": 2,
+                                        "sh": 0,
+                                        "a": 1
+                                    }
+                            }
+                        }
+                    }
+                    ]
+                }""";
         Statistic statistic = StatisticJSONParser.parseStatistic(json).get(0);
         statistic.setId(user1.getId());
         statistic.setUser(user1.getUser());
@@ -95,58 +96,59 @@ class StatisticJSONParserTest {
 
     @Test
     public void twoUsersResponse() {
-        String json = "{\n" +
-                "    \"users\": [\n" +
-                "        {\n" +
-                "            \"id\": 1,\n" +
-                "            \"username\": \"test\",\n" +
-                "            \"statistics_rulesets\": {\n" +
-                "                \"osu\": {\n" +
-                "                    \"level\": {\n" +
-                "                        \"current\": 93,\n" +
-                "                        \"progress\": 20\n" +
-                "                    },\n" +
-                "                    \"global_rank\": 11,\n" +
-                "                    \"pp\": 5000.2,\n" +
-                "                    \"hit_accuracy\": 93.2,\n" +
-                "                    \"play_count\": 10000,\n" +
-                "                    \"play_time\": 123321,\n" +
-                "                    \"grade_counts\": {\n" +
-                "                        \"ss\": 0,\n" +
-                "                        \"ssh\": 0,\n" +
-                "                        \"s\": 44,\n" +
-                "                        \"sh\": 0,\n" +
-                "                        \"a\": 169\n" +
-                "                    }\n" +
-                "            }\n" +
-                "        }\n" +
-                "    },\n" +
-                "{\n" +
-                "            \"id\":2,\n" +
-                "            \"username\": \"test2\",\n" +
-                "            \"statistics_rulesets\": {\n" +
-                "                \"osu\": {\n" +
-                "                    \"level\": {\n" +
-                "                        \"current\": 111,\n" +
-                "                        \"progress\": 5\n" +
-                "                    },\n" +
-                "                    \"global_rank\": 111,\n" +
-                "                    \"pp\": 4500.28,\n" +
-                "                    \"hit_accuracy\": 91.4,\n" +
-                "                    \"play_count\": 8234,\n" +
-                "                    \"play_time\": 111111,\n" +
-                "                    \"grade_counts\": {\n" +
-                "                        \"ss\": 20,\n" +
-                "                        \"ssh\": 0,\n" +
-                "                        \"s\": 140,\n" +
-                "                        \"sh\": 21,\n" +
-                "                        \"a\": 500\n" +
-                "                    }\n" +
-                "            }\n" +
-                "        }\n" +
-                "    }\n" +
-                "    ]\n" +
-                "}";
+        String json = """
+                {
+                    "users": [
+                        {
+                            "id": 1,
+                            "username": "test",
+                            "statistics_rulesets": {
+                                "osu": {
+                                    "level": {
+                                        "current": 93,
+                                        "progress": 20
+                                    },
+                                    "global_rank": 11,
+                                    "pp": 5000.2,
+                                    "hit_accuracy": 93.2,
+                                    "play_count": 10000,
+                                    "play_time": 123321,
+                                    "grade_counts": {
+                                        "ss": 0,
+                                        "ssh": 0,
+                                        "s": 44,
+                                        "sh": 0,
+                                        "a": 169
+                                    }
+                            }
+                        }
+                    },
+                {
+                            "id":2,
+                            "username": "test2",
+                            "statistics_rulesets": {
+                                "osu": {
+                                    "level": {
+                                        "current": 111,
+                                        "progress": 5
+                                    },
+                                    "global_rank": 111,
+                                    "pp": 4500.28,
+                                    "hit_accuracy": 91.4,
+                                    "play_count": 8234,
+                                    "play_time": 111111,
+                                    "grade_counts": {
+                                        "ss": 20,
+                                        "ssh": 0,
+                                        "s": 140,
+                                        "sh": 21,
+                                        "a": 500
+                                    }
+                            }
+                        }
+                    }
+                    ]
+                }""";
 
         List<Statistic> statisticList = StatisticJSONParser.parseStatistic(json);
         statisticList.get(0).setId(user1.getId());

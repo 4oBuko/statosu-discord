@@ -4,7 +4,6 @@ import com.ua.statosudiscord.persistence.SequenceGeneratorService;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.persistence.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
