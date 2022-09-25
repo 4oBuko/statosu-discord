@@ -22,11 +22,11 @@ public class BotConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
     private final String token;
 
-    final UserRepository userRepository;
+    UserRepository userRepository;
 
-    final StatisticRepository statisticRepository;
+    StatisticRepository statisticRepository;
 
-    final SequenceGeneratorService generatorService;
+    SequenceGeneratorService generatorService;
 
     public BotConfiguration(@Value("${bot.token}") String token, UserRepository userRepository, StatisticRepository statisticRepository, SequenceGeneratorService generatorService) {
         this.token = token;
