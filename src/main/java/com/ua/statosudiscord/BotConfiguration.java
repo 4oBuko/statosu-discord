@@ -1,9 +1,6 @@
 package com.ua.statosudiscord;
 
 import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
-import com.ua.statosudiscord.persistence.SequenceGeneratorService;
-import com.ua.statosudiscord.persistence.repositories.StatisticRepository;
-import com.ua.statosudiscord.persistence.repositories.UserRepository;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
@@ -22,17 +19,8 @@ public class BotConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
     private final String token;
 
-    UserRepository userRepository;
-
-    StatisticRepository statisticRepository;
-
-    SequenceGeneratorService generatorService;
-
-    public BotConfiguration(@Value("${bot.token}") String token, UserRepository userRepository, StatisticRepository statisticRepository, SequenceGeneratorService generatorService) {
+    public BotConfiguration(@Value("${bot.token}") String token) {
         this.token = token;
-        this.userRepository = userRepository;
-        this.statisticRepository = statisticRepository;
-        this.generatorService = generatorService;
     }
 
     @Bean
