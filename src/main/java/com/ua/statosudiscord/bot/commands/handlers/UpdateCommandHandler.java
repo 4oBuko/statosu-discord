@@ -13,16 +13,16 @@ import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.DayOfWeek;
 
-@Component
+@Service
 @AllArgsConstructor
 public class UpdateCommandHandler extends CommandHandler {
 
     UserService userService;
-
 
     MessageService messageService;
 
