@@ -18,13 +18,17 @@ import reactor.core.publisher.Mono;
 
 import java.time.DayOfWeek;
 
-@Service
-@AllArgsConstructor
+@Component
 public class UpdateCommandHandler extends CommandHandler {
 
-    UserService userService;
+    private UserService userService;
 
-    MessageService messageService;
+    private MessageService messageService;
+
+    public UpdateCommandHandler(UserService userService, MessageService messageService) {
+        this.userService = userService;
+        this.messageService = messageService;
+    }
 
     public UpdateCommandHandler() {
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()
