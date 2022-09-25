@@ -12,6 +12,7 @@ import discord4j.discordjson.json.ApplicationCommandOptionChoiceData;
 import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -25,6 +26,7 @@ public class UpdateCommandHandler extends CommandHandler {
 
     private MessageService messageService;
 
+    @Autowired
     public UpdateCommandHandler(UserService userService, MessageService messageService) {
         this.userService = userService;
         this.messageService = messageService;
