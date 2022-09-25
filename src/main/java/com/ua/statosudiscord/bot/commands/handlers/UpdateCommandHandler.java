@@ -14,23 +14,20 @@ import discord4j.discordjson.json.ApplicationCommandRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.DayOfWeek;
 
 @Component
+//@AllArgsConstructor
 public class UpdateCommandHandler extends CommandHandler {
-
+//    Using @Autowired annotation because
+//    dependency injection doesn't work using constructor. I don't know why
+    @Autowired
     private UserService userService;
 
-    private MessageService messageService;
-
     @Autowired
-    public UpdateCommandHandler(UserService userService, MessageService messageService) {
-        this.userService = userService;
-        this.messageService = messageService;
-    }
+    private MessageService messageService;
 
     public UpdateCommandHandler() {
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()

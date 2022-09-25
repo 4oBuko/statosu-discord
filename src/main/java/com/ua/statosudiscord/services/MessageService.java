@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class MessageService {
 
-    StatisticService statisticService;
+    private StatisticService statisticService;
 
-    UserService userService;
+    private UserService userService;
 
     public String getNewStatistic(User user) {
         Statistic newestStatistic = statisticService.updateUserStatistic(user);
