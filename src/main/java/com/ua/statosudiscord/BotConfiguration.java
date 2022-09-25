@@ -22,17 +22,8 @@ public class BotConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
     private final String token;
 
-    UserRepository userRepository;
-
-    StatisticRepository statisticRepository;
-
-    SequenceGeneratorService generatorService;
-
-    public BotConfiguration(@Value("${bot.token}") String token, UserRepository userRepository, StatisticRepository statisticRepository, SequenceGeneratorService generatorService) {
+    public BotConfiguration(@Value("${bot.token}") String token) {
         this.token = token;
-        this.userRepository = userRepository;
-        this.statisticRepository = statisticRepository;
-        this.generatorService = generatorService;
     }
 
     @Bean
