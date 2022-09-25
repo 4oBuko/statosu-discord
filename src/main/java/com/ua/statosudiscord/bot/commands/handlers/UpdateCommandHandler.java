@@ -3,7 +3,6 @@ package com.ua.statosudiscord.bot.commands.handlers;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.services.MessageService;
-import com.ua.statosudiscord.services.StatisticService;
 import com.ua.statosudiscord.services.UserService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
@@ -24,7 +23,6 @@ public class UpdateCommandHandler extends CommandHandler {
 
     UserService userService;
 
-    StatisticService statisticService;
 
     MessageService messageService;
 
