@@ -11,7 +11,6 @@ import discord4j.core.object.command.ApplicationCommandOption;
 import discord4j.discordjson.json.ApplicationCommandOptionChoiceData;
 import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -19,7 +18,6 @@ import reactor.core.publisher.Mono;
 import java.time.DayOfWeek;
 
 @Component
-//@AllArgsConstructor
 public class UpdateCommandHandler extends CommandHandler {
 //    Using @Autowired annotation because
 //    dependency injection doesn't work using constructor. I don't know why
