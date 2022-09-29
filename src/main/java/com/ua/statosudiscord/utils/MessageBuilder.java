@@ -121,9 +121,11 @@ public class MessageBuilder {
                 .append("\n");
         message.append(updatedOn)
                 .append(updated.getLastUpdated().format(dateTimeFormatter))
+                .append(" (UTC)")
                 .append("\n");
         message.append(nextUpdate)
-                .append(updated.getNextUpdateTime().format(dateTimeFormatter));
+                .append(updated.getNextUpdateTime().format(dateTimeFormatter))
+                .append(" (UTC)");
         return new Message(updated.getUser().getUserId(), updated.getUser().getChannelId(), message.toString());
     }
 
@@ -168,9 +170,11 @@ public class MessageBuilder {
                 .append("\n");
         message.append(updatedOn)
                 .append(statistic.getLastUpdated().format(DateTimeFormatter.ofPattern("HH:mm LLL dd,uuuu")))
+                .append(" (UTC)")
                 .append("\n");
         message.append(nextUpdate)
-                .append(statistic.getNextUpdateTime().format(dateTimeFormatter));
+                .append(statistic.getNextUpdateTime().format(dateTimeFormatter))
+                .append(" (UTC)");
         return new Message(statistic.getUser().getUserId(), statistic.getUser().getChannelId(), message.toString());
     }
 }
