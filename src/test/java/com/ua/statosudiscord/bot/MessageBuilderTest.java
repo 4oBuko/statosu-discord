@@ -55,7 +55,7 @@ class MessageBuilderTest {
                 Global rank: 629286
                 pp: 1039.18
                 Level: 93.58
-                Accuracy: 89.8627
+                Accuracy: 89.86
                 Play count: 17000
                 Playtime: 200 hr 22 min
                 A: 142
@@ -75,7 +75,7 @@ class MessageBuilderTest {
                 Username: testname
                 Global rank: 600000(+29286)
                 pp: 1100.05(+60.87)
-                Level: 95.3(+1.72)
+                Level: 95.30(+1.72)
                 Accuracy: 92.45(+2.59)
                 Play count: 17000(+0)
                 Playtime: 200 hr 22 min(+0 min)
@@ -97,7 +97,7 @@ class MessageBuilderTest {
                 Global rank: 629286(-29286)
                 pp: 1039.18(-60.87)
                 Level: 93.58(-1.72)
-                Accuracy: 89.8627(-2.59)
+                Accuracy: 89.86(-2.59)
                 Play count: 17000(+0)
                 Playtime: 200 hr 22 min(+0 min)
                 A: 142(-8)
@@ -118,7 +118,7 @@ class MessageBuilderTest {
                 Global rank: 629286(+0)
                 pp: 1039.18(+0.00)
                 Level: 93.58(+0.00)
-                Accuracy: 89.8627(+0.00)
+                Accuracy: 89.86(+0.00)
                 Play count: 17000(+0)
                 Playtime: 200 hr 22 min(+0 min)
                 A: 142(+0)
