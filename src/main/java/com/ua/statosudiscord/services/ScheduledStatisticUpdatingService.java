@@ -42,7 +42,6 @@ public class ScheduledStatisticUpdatingService {
                 message.setMessage("Failed to update statistic. Last updated statistic:" + message.getMessage());
             }
             messageSender.sendMessageInChannelWithoutMentioningUser(message);
-            messageSender.sendMessageInChannelWithUserMention(message);
         }
         logger.debug("Message were sent");
     }
