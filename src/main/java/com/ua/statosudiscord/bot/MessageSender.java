@@ -23,6 +23,7 @@ public class MessageSender {
                 .subscribe();
     }
     public void sendMessageInChannelWithoutMentioningUser(Message message) {
+        //todo: mention user in the message
         gatewayDiscordClient
                 .rest()
                 .getChannelById(Snowflake.of(message.getDiscordChannelId()))

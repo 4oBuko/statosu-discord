@@ -4,6 +4,7 @@ import com.ua.statosudiscord.bot.Message;
 import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.bot.MessageSender;
 import com.ua.statosudiscord.persistence.entities.Statistic;
+import discord4j.core.GatewayDiscordClient;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,15 @@ public class ScheduledStatisticUpdatingService {
 
     MessageSender messageSender;
 
+    private GatewayDiscordClient gatewayDiscordClient;
+
     @Scheduled(cron = "0 0 * * * *")//check for updates every hour
     public void updateStatisticAndSend() {
         LocalDateTime updateTime = LocalDateTime.of(
                 LocalDate.now(), LocalTime.MIDNIGHT.plusHours(LocalDateTime.now().getHour()
                 )
         );
+        logger.warn(String.valueOf(gatewayDiscordClient.rest().getApplicationId().block()));
         logger.debug("Current time: " + updateTime);
         List<Statistic> oldStatistic = statisticService.getStatisticsByNextUpdateTime(updateTime);
         List<Statistic> updatedStatistic = statisticService.updateStatisticByTime(updateTime);
