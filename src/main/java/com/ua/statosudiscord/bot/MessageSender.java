@@ -18,8 +18,15 @@ public class MessageSender {
     public void sendMessageInChannelWithUserMention(Message message) {
         gatewayDiscordClient.getChannelById(Snowflake.of(message.getDiscordChannelId()))
                 .ofType(MessageChannel.class)
-                .flatMap(channel -> channel.createMessage("<@" + message.getDiscordUserId() + ">\n" + message.getMessage()))
+                .flatMap(channel -> channel.createMessage(message.getMessage()))
                 .doOnError(error -> logger.error(error.getMessage()))
+                .subscribe();
+    }
+    public void sendMessageInChannelWithoutMentioningUser(Message message) {
+        gatewayDiscordClient
+                .rest()
+                .getChannelById(Snowflake.of(message.getDiscordChannelId()))
+                .createMessage(message.getMessage())
                 .subscribe();
     }
 }
