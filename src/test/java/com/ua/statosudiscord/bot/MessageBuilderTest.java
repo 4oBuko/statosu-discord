@@ -64,7 +64,8 @@ class MessageBuilderTest {
                 S+: 1
                 SS+: 0
                 Updated on: 12:12 Jul 11,2022 (UTC)
-                Next update: 12:00 Jul 18,2022 (UTC)""";
+                Next update: 12:00 Jul 18,2022 (UTC)
+                """;
         assertEquals(message, MessageBuilder.createMessage(oldStatistic).getMessage());
     }
 
@@ -85,7 +86,8 @@ class MessageBuilderTest {
                 S+: 2(+1)
                 SS+: 1(+1)
                 Updated on: 12:12 Jul 30,2022 (UTC)
-                Next update: 12:00 Aug 06,2022 (UTC)""";
+                Next update: 12:00 Aug 06,2022 (UTC)
+                """;
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, newStatistic).getMessage());
     }
 
@@ -106,7 +108,8 @@ class MessageBuilderTest {
                 S+: 1(-1)
                 SS+: 0(-1)
                 Updated on: 12:12 Jul 11,2022 (UTC)
-                Next update: 12:00 Jul 18,2022 (UTC)""";
+                Next update: 12:00 Jul 18,2022 (UTC)
+                """;
         assertEquals(message, MessageBuilder.createMessage(newStatistic, oldStatistic).getMessage());
     }
 
@@ -127,7 +130,8 @@ class MessageBuilderTest {
                 S+: 1(+0)
                 SS+: 0(+0)
                 Updated on: 12:12 Jul 11,2022 (UTC)
-                Next update: 12:00 Jul 18,2022 (UTC)""";
+                Next update: 12:00 Jul 18,2022 (UTC)
+                """;
         assertEquals(message, MessageBuilder.createMessage(oldStatistic, oldStatistic).getMessage());
     }
 }
