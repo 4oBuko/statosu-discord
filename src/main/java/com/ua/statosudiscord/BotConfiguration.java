@@ -5,6 +5,8 @@ import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import discord4j.discordjson.json.ApplicationCommandRequest;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,5 +42,10 @@ public class BotConfiguration {
                 .doOnError(error -> logger.error("Fail to register slash commands. Error message: " + error.getMessage()))
                 .subscribe();
         return client;
+    }
+
+    @Bean
+    public JDA jda() {
+        return JDABuilder.createDefault(token).build();
     }
 }

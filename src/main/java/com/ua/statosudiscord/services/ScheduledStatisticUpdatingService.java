@@ -1,6 +1,7 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.bot.Message;
+import com.ua.statosudiscord.bot.commands.handlers.MessageSenderJDA;
 import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.bot.MessageSender;
 import com.ua.statosudiscord.persistence.entities.Statistic;
@@ -21,11 +22,12 @@ public class ScheduledStatisticUpdatingService {
     private static final Logger logger = LoggerFactory.getLogger(ScheduledStatisticUpdatingService.class);
     private StatisticService statisticService;
 
-    MessageSender messageSender;
+    private MessageSender messageSender;
+    private MessageSenderJDA jdaMessageSender;
 
     private GatewayDiscordClient gatewayDiscordClient;
 
-    @Scheduled(cron = "0 0 * * * *")//check for updates every hour
+    @Scheduled(cron = "0 54 * * * *")//check for updates every hour
     public void updateStatisticAndSend() {
         LocalDateTime updateTime = LocalDateTime.of(
                 LocalDate.now(), LocalTime.MIDNIGHT.plusHours(LocalDateTime.now().getHour()
@@ -41,7 +43,8 @@ public class ScheduledStatisticUpdatingService {
             if (oldStatistic.get(i).equals(updatedStatistic.get(i))) {
                 message.setMessage("Failed to update statistic. Last updated statistic:" + message.getMessage());
             }
-            messageSender.sendMessageInChannelWithoutMentioningUser(message);
+            jdaMessageSender.sendMessageForUser(message);
+//            messageSender.sendMessageInChannelWithoutMentioningUser(message);
         }
         logger.debug("Message were sent");
     }
