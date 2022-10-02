@@ -27,7 +27,7 @@ public class ScheduledStatisticUpdatingService {
 
     private GatewayDiscordClient gatewayDiscordClient;
 
-    @Scheduled(cron = "0 54 * * * *")//check for updates every hour
+    @Scheduled(cron = "0 0 * * * *")//check for updates every hour
     public void updateStatisticAndSend() {
         LocalDateTime updateTime = LocalDateTime.of(
                 LocalDate.now(), LocalTime.MIDNIGHT.plusHours(LocalDateTime.now().getHour()
