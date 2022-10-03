@@ -19,9 +19,9 @@ import java.time.DayOfWeek;
 
 @Component
 public class UpdateCommandHandler extends CommandHandler {
-    private UserService userService;
+    private final UserService userService;
 
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @Autowired
     public UpdateCommandHandler(MessageService messageService, UserService userService) {

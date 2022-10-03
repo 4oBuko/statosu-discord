@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class UsernameCommandHandler extends CommandHandler {
-    private MessageService messageService;
+    private final MessageService messageService;
     @Autowired
     public UsernameCommandHandler(MessageService messageService) {
         this.messageService = messageService;
