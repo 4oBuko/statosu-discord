@@ -1,5 +1,6 @@
 package com.ua.statosudiscord.bot.commands.handlers;
 
+import com.ua.statosudiscord.bot.commands.builders.AboutCommandRequestBuilder;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import org.springframework.stereotype.Component;
@@ -9,11 +10,8 @@ import reactor.core.publisher.Mono;
 public class AboutCommandHandler extends CommandHandler {
 
     public AboutCommandHandler() {
-        ApplicationCommandRequest request = ApplicationCommandRequest.builder()
-                .name("about")
-                .description("info about me")
-                .build();
-
+        AboutCommandRequestBuilder aboutCommandRequestBuilder = new AboutCommandRequestBuilder();
+        ApplicationCommandRequest request = aboutCommandRequestBuilder.buildCommandRequest();
         setCommandRequest(request);
     }
     private final static String aboutBot = """
