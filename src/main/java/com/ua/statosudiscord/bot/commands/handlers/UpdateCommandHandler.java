@@ -19,15 +19,14 @@ import java.time.DayOfWeek;
 
 @Component
 public class UpdateCommandHandler extends CommandHandler {
-//    Using @Autowired annotation because
-//    dependency injection doesn't work using constructor. I don't know why
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private MessageService messageService;
 
-    public UpdateCommandHandler() {
+    @Autowired
+    public UpdateCommandHandler(MessageService messageService, UserService userService) {
+        this.messageService = messageService;
+        this.userService = userService;
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()
                 .name("update")
                 .description("set statistic update period and time")

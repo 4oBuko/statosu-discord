@@ -13,13 +13,10 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class UsernameCommandHandler extends CommandHandler {
-
-//    Using @Autowired annotation because
-//    dependency injection doesn't work using constructor. I don't know why
-    @Autowired
     private MessageService messageService;
-
-    public UsernameCommandHandler() {
+    @Autowired
+    public UsernameCommandHandler(MessageService messageService) {
+        this.messageService = messageService;
         ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()
                 .name("username")
                 .description("set your osu! username")
