@@ -1,5 +1,6 @@
 package com.ua.statosudiscord.bot.commands.handlers;
 
+import com.ua.statosudiscord.bot.commands.builders.UpdateCommandRequestBuilder;
 import com.ua.statosudiscord.persistence.entities.UpdatePeriod;
 import com.ua.statosudiscord.persistence.entities.User;
 import com.ua.statosudiscord.services.MessageService;
@@ -7,9 +8,6 @@ import com.ua.statosudiscord.services.UserService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
-import discord4j.core.object.command.ApplicationCommandOption;
-import discord4j.discordjson.json.ApplicationCommandOptionChoiceData;
-import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,106 +25,8 @@ public class UpdateCommandHandler extends CommandHandler {
     public UpdateCommandHandler(MessageService messageService, UserService userService) {
         this.messageService = messageService;
         this.userService = userService;
-        ApplicationCommandRequest commandRequest = ApplicationCommandRequest.builder()
-                .name("update")
-                .description("set statistic update period and time")
-                .addOption(ApplicationCommandOptionData.builder()
-                        .name("daily")
-                        .description("get statistic update everyday")
-                        .type(ApplicationCommandOption.Type.SUB_COMMAND.getValue())
-                        .addOption(ApplicationCommandOptionData.builder()
-                                .name("time")
-                                .description("update time (0-23)")
-                                .minValue(Double.valueOf(0L))
-                                .maxValue(Double.valueOf(23))
-                                .type(ApplicationCommandOption.Type.INTEGER.getValue())
-                                .required(true)
-                                .build()
-                        )
-                        .build()
-                )
-                .addOption(ApplicationCommandOptionData.builder()
-                        .name("weekly")
-                        .description("get statistic update every week")
-                        .type(ApplicationCommandOption.Type.SUB_COMMAND.getValue())
-                        .addOption(ApplicationCommandOptionData.builder()
-                                .name("day-of-week")
-                                .description("Choose day of the week for updates. You can write value in lowercase or uppercase.")
-                                .addChoice(ApplicationCommandOptionChoiceData.builder()
-                                        .name("Monday")
-                                        .value("monday")
-                                        .build()
-                                )
-                                .addChoice(ApplicationCommandOptionChoiceData.builder()
-                                        .name("Tuesday")
-                                        .value("Tuesday")
-                                        .build()
-                                )
-                                .addChoice(ApplicationCommandOptionChoiceData.builder()
-                                        .name("Wednesday")
-                                        .value("Wednesday")
-                                        .build()
-                                )
-                                .addChoice(ApplicationCommandOptionChoiceData.builder()
-                                        .name("Thursday")
-                                        .value("Thursday")
-                                        .build()
-                                )
-                                .addChoice(ApplicationCommandOptionChoiceData.builder()
-                                        .name("Friday")
-                                        .value("Friday")
-                                        .build()
-                                )
-                                .addChoice(ApplicationCommandOptionChoiceData.builder()
-                                        .name("Saturday")
-                                        .value("Saturday")
-                                        .build()
-                                )
-                                .addChoice(ApplicationCommandOptionChoiceData.builder()
-                                        .name("Sunday")
-                                        .value("Sunday")
-                                        .build()
-                                )
-                                .type(ApplicationCommandOption.Type.STRING.getValue())
-                                .required(true)
-                                .build())
-                        .addOption(ApplicationCommandOptionData.builder()
-                                .name("time")
-                                .description("update time (0-23)")
-                                .minValue(Double.valueOf(0L))
-                                .maxValue(Double.valueOf(23))
-                                .type(ApplicationCommandOption.Type.INTEGER.getValue())
-                                .required(true)
-                                .build()
-                        )
-                        .build()
-                )
-                .addOption(ApplicationCommandOptionData.builder()
-                        .name("monthly")
-                        .description("get statistic update month")
-                        .type(ApplicationCommandOption.Type.SUB_COMMAND.getValue())
-                        .addOption(ApplicationCommandOptionData.builder()
-                                .name("day")
-                                .description("day of the month (1-28)")
-                                .minValue(Double.valueOf(1L))
-                                .maxValue(Double.valueOf(28))
-                                .type(ApplicationCommandOption.Type.INTEGER.getValue())
-                                .required(true)
-                                .build()
-                        )
-                        .addOption(ApplicationCommandOptionData.builder()
-                                .name("time")
-                                .description("update time (0-23)")
-                                .minValue(Double.valueOf(0L))
-                                .maxValue(Double.valueOf(23))
-                                .type(ApplicationCommandOption.Type.INTEGER.getValue())
-                                .required(true)
-                                .build()
-                        )
-                        .build()
-                )
-                .build();
-
+        UpdateCommandRequestBuilder updateCommandRequestBuilder = new UpdateCommandRequestBuilder();
+        ApplicationCommandRequest commandRequest = updateCommandRequestBuilder.buildCommandRequest();
         setCommandRequest(commandRequest);
     }
 
@@ -183,4 +83,5 @@ public class UpdateCommandHandler extends CommandHandler {
                 .withEphemeral(true)
                 .withContent(response);
     }
+
 }
