@@ -1,0 +1,19 @@
+body {
+    background: #23272A;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+#join-button {
+    padding: 1.5% 12.5%;
+    font-family: system-ui;
+    background: #5865F2;
+    border-style: none;
+    border-radius: 30px;
+    margin: 0 auto;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
