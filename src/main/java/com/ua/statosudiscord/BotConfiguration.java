@@ -7,6 +7,7 @@ import discord4j.core.event.domain.Event;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +47,11 @@ public class BotConfiguration {
 
     @Bean
     public JDA jda() {
-        return JDABuilder.createDefault(token).build();
+        JDA jda = JDABuilder.createDefault(token).build();
+        jda.updateCommands()
+                .addCommands(
+                        Commands.slash("info", "about me test")
+                ).queue();
+        return jda;
     }
 }
