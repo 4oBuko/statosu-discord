@@ -1,6 +1,7 @@
 package com.ua.statosudiscord;
 
 import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
+import com.ua.statosudiscord.bot.slashcommands.commands.AboutSlashCommand;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,10 +49,11 @@ public class BotConfiguration {
 
     @Bean
     public JDA jda() {
+        List<AboutSlashCommand> list = new ArrayList<>();
         JDA jda = JDABuilder.createDefault(token).build();
         jda.updateCommands()
                 .addCommands(
-                        Commands.slash("info", "about me test")
+//                        AboutSlashCommand.getCommand()
                 ).queue();
         return jda;
     }
