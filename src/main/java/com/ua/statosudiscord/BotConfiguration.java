@@ -36,15 +36,15 @@ public class BotConfiguration {
                 .build()
                 .login()
                 .block();
-
-        List<ApplicationCommandRequest> commandRequests = commandHandlers.stream().map(CommandHandler::getCommandRequest).collect(Collectors.toList());
-        Long applicationId = client.getRestClient().getApplicationId().block();
-        client.getRestClient()
-                .getApplicationService()
-                .bulkOverwriteGlobalApplicationCommand(applicationId, commandRequests)
-                .doOnNext(ignore -> logger.debug("Slash commands successfully registered"))
-                .doOnError(error -> logger.error("Fail to register slash commands. Error message: " + error.getMessage()))
-                .subscribe();
+//
+//        List<ApplicationCommandRequest> commandRequests = commandHandlers.stream().map(CommandHandler::getCommandRequest).collect(Collectors.toList());
+//        Long applicationId = client.getRestClient().getApplicationId().block();
+//        client.getRestClient()
+//                .getApplicationService()
+//                .bulkOverwriteGlobalApplicationCommand(applicationId, commandRequests)
+//                .doOnNext(ignore -> logger.debug("Slash commands successfully registered"))
+//                .doOnError(error -> logger.error("Fail to register slash commands. Error message: " + error.getMessage()))
+//                .subscribe();
         return client;
     }
 
