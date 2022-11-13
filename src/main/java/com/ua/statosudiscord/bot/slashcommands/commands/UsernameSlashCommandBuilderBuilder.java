@@ -4,10 +4,12 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.springframework.stereotype.Component;
 
-public class UsernameSlashCommandBuilder implements SlashCommand {
+@Component
+public class UsernameSlashCommandBuilderBuilder implements SlashCommandBuilder {
     @Override
-    public CommandData getCommand() {
+    public CommandData build() {
         return commandData();
     }
 

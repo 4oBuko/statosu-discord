@@ -4,9 +4,9 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-public class AboutSlashCommandBuilder implements SlashCommand {
+public class AboutSlashCommandBuilderBuilder implements SlashCommandBuilder {
     @Override
-    public CommandData getCommand() {
+    public CommandData build() {
         return commandData();
     }
 

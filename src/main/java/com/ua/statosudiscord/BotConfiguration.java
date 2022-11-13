@@ -1,14 +1,15 @@
 package com.ua.statosudiscord;
 
 import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
-import com.ua.statosudiscord.bot.slashcommands.commands.AboutSlashCommand;
+import com.ua.statosudiscord.bot.slashcommands.commands.AboutSlashCommandBuilderBuilder;
+import com.ua.statosudiscord.bot.slashcommands.commands.SlashCommandBuilder;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,12 +49,13 @@ public class BotConfiguration {
     }
 
     @Bean
-    public JDA jda() {
-        List<AboutSlashCommand> list = new ArrayList<>();
+    public JDA jda(List<SlashCommandBuilder> slashCommandBuilders) {
         JDA jda = JDABuilder.createDefault(token).build();
         jda.updateCommands()
                 .addCommands(
-//                        AboutSlashCommand.getCommand()
+                        slashCommandBuilders.stream()
+                                .map(SlashCommandBuilder::build)
+                                .toArray(CommandData[]::new)
                 ).queue();
         return jda;
     }
