@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
+
 @Component
 public class UpdateSlashCommandBuilderBuilder implements SlashCommandBuilder {
     @Override
@@ -43,7 +44,7 @@ public class UpdateSlashCommandBuilderBuilder implements SlashCommandBuilder {
                 .setMinValue(1L)
                 .setMaxValue(28L);
         return new SubcommandData("monthly", "get statistic update every month")
-                .addOptions(dayOfMonth);
+                .addOptions(dayOfMonth, getUpdateTimeCommandOption());
     }
 
     private static OptionData getUpdateTimeCommandOption() {
