@@ -1,12 +1,10 @@
 package com.ua.statosudiscord;
 
 import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
-import com.ua.statosudiscord.bot.slashcommands.commands.AboutSlashCommandBuilderBuilder;
 import com.ua.statosudiscord.bot.slashcommands.commands.SlashCommandBuilder;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
-import discord4j.discordjson.json.ApplicationCommandRequest;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -16,9 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
 public class BotConfiguration {

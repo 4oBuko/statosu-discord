@@ -3,7 +3,9 @@ package com.ua.statosudiscord.bot.slashcommands.listeners;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AboutCommandListener extends ListenerAdapter {
     private final static String aboutBot = """
             Hello, I'm Statosu. I show your progress in osu! classic mode.
