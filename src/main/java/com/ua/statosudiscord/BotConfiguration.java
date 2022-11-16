@@ -2,11 +2,13 @@ package com.ua.statosudiscord;
 
 import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
 import com.ua.statosudiscord.bot.slashcommands.commands.SlashCommandBuilder;
+import com.ua.statosudiscord.bot.slashcommands.listeners.AboutCommandListener;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,32 +29,17 @@ public class BotConfiguration {
 
     @Bean
     public <T extends Event> GatewayDiscordClient gatewayDiscordClient(List<CommandHandler> commandHandlers) {
-        GatewayDiscordClient client = DiscordClientBuilder
+        return DiscordClientBuilder
                 .create(token)
                 .build()
                 .login()
                 .block();
-//
-//        List<ApplicationCommandRequest> commandRequests = commandHandlers.stream().map(CommandHandler::getCommandRequest).collect(Collectors.toList());
-//        Long applicationId = client.getRestClient().getApplicationId().block();
-//        client.getRestClient()
-//                .getApplicationService()
-//                .bulkOverwriteGlobalApplicationCommand(applicationId, commandRequests)
-//                .doOnNext(ignore -> logger.debug("Slash commands successfully registered"))
-//                .doOnError(error -> logger.error("Fail to register slash commands. Error message: " + error.getMessage()))
-//                .subscribe();
-        return client;
     }
 
     @Bean
-    public JDA jda(List<SlashCommandBuilder> slashCommandBuilders) {
+    public JDA jda(List<ListenerAdapter> adapters) {
         JDA jda = JDABuilder.createDefault(token).build();
-        jda.updateCommands()
-                .addCommands(
-                        slashCommandBuilders.stream()
-                                .map(SlashCommandBuilder::build)
-                                .toArray(CommandData[]::new)
-                ).queue();
+        adapters.forEach(jda::addEventListener);
         return jda;
     }
 }
