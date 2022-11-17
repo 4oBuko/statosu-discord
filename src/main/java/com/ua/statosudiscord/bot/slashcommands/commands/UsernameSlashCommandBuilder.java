@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UsernameSlashCommandBuilderBuilder implements SlashCommandBuilder {
+public class UsernameSlashCommandBuilder implements SlashCommandBuilder {
     @Override
     public CommandData build() {
         return commandData();

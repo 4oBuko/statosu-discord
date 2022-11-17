@@ -1,15 +1,13 @@
 package com.ua.statosudiscord;
 
 import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
+import com.ua.statosudiscord.bot.slashcommands.CommandsManager;
 import com.ua.statosudiscord.bot.slashcommands.commands.SlashCommandBuilder;
-import com.ua.statosudiscord.bot.slashcommands.listeners.AboutCommandListener;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,9 +35,9 @@ public class BotConfiguration {
     }
 
     @Bean
-    public JDA jda(List<ListenerAdapter> adapters) {
+    public JDA jda(CommandsManager manager, List<SlashCommandBuilder> builders) {
         JDA jda = JDABuilder.createDefault(token).build();
-        adapters.forEach(jda::addEventListener);
+        jda.addEventListener(manager);
         return jda;
     }
 }
