@@ -22,7 +22,7 @@ public class BotConfiguration {
     }
 
     @Bean
-    public JDA jda(CommandsManager manager, List<SlashCommandBuilder> builders) {
+    public JDA jda(CommandsManager manager) {
         JDA jda = JDABuilder.createDefault(token).build();
         jda.addEventListener(manager);
         return jda;

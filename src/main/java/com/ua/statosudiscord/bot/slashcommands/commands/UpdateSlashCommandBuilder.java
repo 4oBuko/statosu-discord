@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 
 @Component
-public class UpdateSlashCommandBuilderBuilder implements SlashCommandBuilder {
+public class UpdateSlashCommandBuilder implements SlashCommandBuilder {
     @Override
     public CommandData build() {
         return Commands.slash("update", "set statistic update period and time")

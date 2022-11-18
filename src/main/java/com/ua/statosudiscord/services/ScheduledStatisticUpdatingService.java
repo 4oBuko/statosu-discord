@@ -1,7 +1,7 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.bot.Message;
-import com.ua.statosudiscord.bot.MessageSenderJDA;
+import com.ua.statosudiscord.bot.MessageSender;
 import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.persistence.entities.Statistic;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class ScheduledStatisticUpdatingService {
     private static final Logger logger = LoggerFactory.getLogger(ScheduledStatisticUpdatingService.class);
     private StatisticService statisticService;
 
-    private MessageSenderJDA jdaMessageSender;
+    private MessageSender jdaMessageSender;
 
     @Scheduled(cron = "0 0 * * * *")//check for updates every hour
     public void updateStatisticAndSend() {

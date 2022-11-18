@@ -1,6 +1,5 @@
 package com.ua.statosudiscord.bot;
 
-import com.ua.statosudiscord.bot.Message;
 import lombok.AllArgsConstructor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class MessageSenderJDA {
+public class MessageSender {
     private JDA jda;
 
     public void sendMessageForUser(Message message) {
