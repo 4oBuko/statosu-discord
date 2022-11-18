@@ -1,11 +1,7 @@
 package com.ua.statosudiscord;
 
-import com.ua.statosudiscord.bot.commands.handlers.CommandHandler;
 import com.ua.statosudiscord.bot.slashcommands.CommandsManager;
 import com.ua.statosudiscord.bot.slashcommands.commands.SlashCommandBuilder;
-import discord4j.core.DiscordClientBuilder;
-import discord4j.core.GatewayDiscordClient;
-import discord4j.core.event.domain.Event;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.Logger;
@@ -23,15 +19,6 @@ public class BotConfiguration {
 
     public BotConfiguration(@Value("${bot.token}") String token) {
         this.token = token;
-    }
-
-    @Bean
-    public <T extends Event> GatewayDiscordClient gatewayDiscordClient(List<CommandHandler> commandHandlers) {
-        return DiscordClientBuilder
-                .create(token)
-                .build()
-                .login()
-                .block();
     }
 
     @Bean

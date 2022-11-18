@@ -1,4 +1,4 @@
-package com.ua.statosudiscord.bot.commands.handlers;
+package com.ua.statosudiscord.bot;
 
 import com.ua.statosudiscord.bot.Message;
 import lombok.AllArgsConstructor;
