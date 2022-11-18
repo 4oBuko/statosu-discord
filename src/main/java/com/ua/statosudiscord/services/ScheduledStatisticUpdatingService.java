@@ -1,11 +1,9 @@
 package com.ua.statosudiscord.services;
 
 import com.ua.statosudiscord.bot.Message;
-import com.ua.statosudiscord.bot.commands.handlers.MessageSenderJDA;
-import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.bot.MessageSender;
+import com.ua.statosudiscord.utils.MessageBuilder;
 import com.ua.statosudiscord.persistence.entities.Statistic;
-import discord4j.core.GatewayDiscordClient;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +20,7 @@ public class ScheduledStatisticUpdatingService {
     private static final Logger logger = LoggerFactory.getLogger(ScheduledStatisticUpdatingService.class);
     private StatisticService statisticService;
 
-    private MessageSender messageSender;
-    private MessageSenderJDA jdaMessageSender;
-
-    private GatewayDiscordClient gatewayDiscordClient;
+    private MessageSender jdaMessageSender;
 
     @Scheduled(cron = "0 0 * * * *")//check for updates every hour
     public void updateStatisticAndSend() {
@@ -33,7 +28,6 @@ public class ScheduledStatisticUpdatingService {
                 LocalDate.now(), LocalTime.MIDNIGHT.plusHours(LocalDateTime.now().getHour()
                 )
         );
-        logger.warn(String.valueOf(gatewayDiscordClient.rest().getApplicationId().block()));
         logger.debug("Current time: " + updateTime);
         List<Statistic> oldStatistic = statisticService.getStatisticsByNextUpdateTime(updateTime);
         List<Statistic> updatedStatistic = statisticService.updateStatisticByTime(updateTime);
@@ -44,7 +38,6 @@ public class ScheduledStatisticUpdatingService {
                 message.setMessage("Failed to update statistic. Last updated statistic:" + message.getMessage());
             }
             jdaMessageSender.sendMessageForUser(message);
-//            messageSender.sendMessageInChannelWithoutMentioningUser(message);
         }
         logger.debug("Message were sent");
     }
