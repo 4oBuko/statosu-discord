@@ -19,8 +19,6 @@ public class UsernameCommandHandler extends BaseCommandHandler {
         String username = event.getOptionsByName("username").get(0).getAsString();
         long channelId = event.getInteraction().getChannel().getIdLong();
         long userId = event.getInteraction().getUser().getIdLong();
-        String response = messageService.updateUsername(channelId, userId, username);
-        event.reply(response).addContent(response).setEphemeral(true).queue();
-        return null;
+        return messageService.updateUsername(channelId, userId, username);
     }
 }
